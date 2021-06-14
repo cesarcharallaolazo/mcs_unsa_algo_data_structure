@@ -53,9 +53,5 @@ Thumbs.db
 *.xlsx
 *.pdf
 
-# data directories
-*/data/*
-tmp/
-
 
 
