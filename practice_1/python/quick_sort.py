@@ -1,35 +1,33 @@
-# counting sort algorithm
-import pdb
-import random
+# quick sort algorithm
+# import pdb
+
+# this implementation https://www.researchgate.net/figure/Quicksort-Pseudocode_fig21_2361704
+
+def quick_sort(my_list, s, e):
+    if (s < e):
+        p = partitioning(my_list, s, e)
+
+        quick_sort(my_list, s, p - 1)
+        quick_sort(my_list, p + 1, e)
 
 
-# this implementation http://opendatastructures.org/ods-python/11_2_Counting_Sort_Radix_So.html
+def partitioning(my_list, s, e):
+    pvt_ix = s
+    pivot = my_list[pvt_ix]
 
-def quick_sort(my_list=None):
-    quick_sort_f(my_list, 0, len(my_list))
+    while s < e:
+        while s < len(my_list) and my_list[s] <= pivot:
+            s += 1
+        while my_list[e] > pivot:
+            e -= 1
+        if s < e:
+            my_list[s], my_list[e] = my_list[e], my_list[s]
+    my_list[e], my_list[pvt_ix] = my_list[pvt_ix], my_list[e]
 
-
-def quick_sort_f(my_list, i, n):
-    if n <= 1:
-        x = my_list[i + random.randint(0, n)]
-        (p, j, q) = (i - 1, i, i + n)
-        while j < q:
-            if my_list[j] < x:
-                p = p + 1
-                my_list[j], my_list[p] = my_list[p], my_list[j]
-                j = j + 1
-            elif my_list[j] > x:
-                q = q - 1
-                my_list[j], my_list[q] = my_list[q], my_list[j]
-            else:
-                j = j + 1
-        print(x)
-        quick_sort_f(my_list, i, p - i + 1)
-        quick_sort_f(my_list, q, n - (q - i))
+    return e
 
 
-# evaluate
+ll = [3, 1, 8, 9, 11, 8, 343, 17]
+quick_sort(ll, 0, len(ll) - 1)
 
-ll = [3, 1, 8, 9, 11, 8, 343]
-print(max(ll))
-print(quick_sort(ll))
+print(f'Sorted my_list: {ll}')
