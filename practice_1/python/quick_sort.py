@@ -17,9 +17,9 @@ def partitioning(my_list, s, e):
 
     while s < e:
         while s < len(my_list) and my_list[s] <= pivot:
-            s += 1
+            s = s + 1
         while my_list[e] > pivot:
-            e -= 1
+            e = e - 1
         if s < e:
             my_list[s], my_list[e] = my_list[e], my_list[s]
     my_list[e], my_list[pvt_ix] = my_list[pvt_ix], my_list[e]
@@ -30,4 +30,4 @@ def partitioning(my_list, s, e):
 ll = [3, 1, 8, 9, 11, 8, 343, 17]
 quick_sort(ll, 0, len(ll) - 1)
 
-print(f'Sorted my_list: {ll}')
+print(ll)
