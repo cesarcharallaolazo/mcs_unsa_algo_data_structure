@@ -1,4 +1,4 @@
-#include<conio.h>
+#include<ncurses.h>
 #include<math.h>
 #include <vector>
 #include <errno.h>
@@ -33,7 +33,7 @@ int *arrayData100000;
 #include "bubbleSort.h"
 
 
-// PRUEBAAAAA
+// bubble soprt, heap sort, merge sort, selection sort
 using namespace std;
 
 //void bubbleSort(arrayDatosInt,sizeFile);
@@ -70,15 +70,30 @@ void menuAlgorithm(){
     printf("=================================\n");
     switch(opc){
     case 1: 
-	    bubbleSort(arrayData100,sizeFile100);
-		bubbleSort(arrayData500,sizeFile500);
-		bubbleSort(arrayData1000,sizeFile1000);
-		bubbleSort(arrayData2000,sizeFile2000);
-		//bubbleSort(arrayData3000,sizeFile3000);
-		//bubbleSort(arrayData10000,sizeFile10000);
-		//bubbleSort(arrayData20000,sizeFile20000);
-		//bubbleSort(arrayData30000,sizeFile30000);
-		//bubbleSort(arrayData100000,sizeFile100000);
+		{
+		ofstream outfile ("BubbleSort.txt");
+
+		string tiempo=bubbleSort(arrayData100,sizeFile100);
+		outfile << "100,"+tiempo<< std::endl;
+		tiempo=bubbleSort(arrayData500,sizeFile500);
+		outfile << "500,"+tiempo<< std::endl;
+		tiempo=bubbleSort(arrayData1000,sizeFile1000);
+		outfile << "1000,"+tiempo<< std::endl;
+		tiempo=bubbleSort(arrayData2000,sizeFile2000);
+		outfile << "2000,"+tiempo<< std::endl;
+		tiempo=bubbleSort(arrayData3000,sizeFile3000);
+		outfile << "3000,"+tiempo<< std::endl;
+		tiempo=bubbleSort(arrayData10000,sizeFile10000);
+		outfile << "10000,"+tiempo<< std::endl;
+		tiempo=bubbleSort(arrayData20000,sizeFile20000);
+		outfile << "20000,"+tiempo<< std::endl;
+		tiempo=bubbleSort(arrayData30000,sizeFile30000);
+		outfile << "30000,"+tiempo<< std::endl;
+		tiempo=bubbleSort(arrayData100000,sizeFile100000);
+		outfile << "100000,"+tiempo<< std::endl;
+		
+		outfile.close();
+		}
     break;  
     case 2:
     	problema2();

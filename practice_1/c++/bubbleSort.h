@@ -15,8 +15,8 @@ string bubbleSort(int array[],int n){
 	            }
 	        }
 	    }
-	    cout<<"\n Array Sorted Successfully!\n";
-	    cout<<"\n The New Array is: \n";
+	    //cout<<"\n Array Sorted Successfully!\n";
+	    //cout<<"\n The New Array is: \n";
 	    for(i=0; i<n; i++)
 	        cout<<array[i]<<",";
 	    cout<<endl;
@@ -25,5 +25,5 @@ string bubbleSort(int array[],int n){
 	double time = (double(t1-t0)/CLOCKS_PER_SEC);
 	string time_ = to_string(time);
 	cout << "Execution Time: " << time_ << endl;
-	return time;
+	return time_;
 }
