@@ -38,7 +38,7 @@ void menuAlgorithm();
 void problema2(void);
 void problema3(void);
 void problema4(void);
-
+//// aawdawdaqwdawd
 void menu(void);
 int main(){
 	sizeFile100=readFiles(100);
