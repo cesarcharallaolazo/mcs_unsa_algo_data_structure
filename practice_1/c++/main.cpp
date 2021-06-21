@@ -1,3 +1,4 @@
+
 #include<conio.h>
 #include<math.h>
 #include <vector>
@@ -76,7 +77,8 @@ void menuAlgorithm(){
 		bubbleSort(arrayData20000,sizeFile20000);
 		bubbleSort(arrayData30000,sizeFile30000);
 		bubbleSort(arrayData100000,sizeFile100000);*/
-		
+		ofstream outfile;
+		outfile.open("output.txt");
 		string tiempo=bubbleSort(arrayData100,sizeFile100);
 		outfile << "100,"+tiempo<< std::endl;
 		tiempo=bubbleSort(arrayData500,sizeFile500);
