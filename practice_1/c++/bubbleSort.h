@@ -2,7 +2,7 @@
 #include <ctime> 
 using namespace std;
 
-void bubbleSort(int array[],int n){
+string bubbleSort(int array[],int n){
 	unsigned t0, t1;
 	t0=clock();
 		int i, j, temp;
@@ -23,5 +23,7 @@ void bubbleSort(int array[],int n){
 	t1 = clock();
  
 	double time = (double(t1-t0)/CLOCKS_PER_SEC);
-	cout << "Execution Time: " << time << endl;
+	string time_ = to_string(time);
+	cout << "Execution Time: " << time_ << endl;
+	return time;
 }

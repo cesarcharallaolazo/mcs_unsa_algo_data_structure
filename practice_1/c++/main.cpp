@@ -18,6 +18,7 @@ int sizeFile10000;
 int sizeFile20000;
 int sizeFile30000;
 int sizeFile100000;
+
 int *arrayData100;
 int *arrayData500;
 int *arrayData1000;
