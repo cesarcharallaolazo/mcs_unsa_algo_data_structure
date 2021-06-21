@@ -26,7 +26,7 @@ int *arrayData3000;
 int *arrayData10000;
 int *arrayData20000;
 int *arrayData30000;
-int *arrayData100000;
+int *arrayData100000; 
 
 #include "readFile.h"
 #include "bubbleSort.h"
