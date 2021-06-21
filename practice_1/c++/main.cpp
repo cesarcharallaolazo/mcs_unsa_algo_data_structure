@@ -91,7 +91,6 @@ void menuAlgorithm(){
 		outfile << "30000,"+tiempo<< std::endl;
 		tiempo=bubbleSort(arrayData100000,sizeFile100000);
 		outfile << "100000,"+tiempo<< std::endl;
-		
 		outfile.close();
 		}
     break;  

@@ -17,9 +17,9 @@ string bubbleSort(int array[],int n){
 	    }
 	    //cout<<"\n Array Sorted Successfully!\n";
 	    //cout<<"\n The New Array is: \n";
-	    for(i=0; i<n; i++)
-	        cout<<array[i]<<",";
-	    cout<<endl;
+	    //for(i=0; i<n; i++)
+	     //   cout<<array[i]<<",";
+	    //cout<<endl;
 	t1 = clock();
  
 	double time = (double(t1-t0)/CLOCKS_PER_SEC);
