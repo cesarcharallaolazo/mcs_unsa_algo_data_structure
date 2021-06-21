@@ -15,7 +15,7 @@ int readFiles(int size){
 	stringstream ss;
 	ss <<size;
 	string nameFile =ss.str() + "-numeros.txt";
-	cout<<"nameFile: " << nameFile ;
+	//cout<<"nameFile: " << nameFile ;
 	ifstream file(nameFile.c_str());
 	string linea;
 	char buffer[10];
@@ -27,8 +27,8 @@ int readFiles(int size){
 			//cout<<arrayData100[count]<<endl;
 		    count++;
 		}
-		cout  << endl;
-		cout << "CANTIDAD: " << count << endl;
+		//cout  << endl;
+		//cout << "CANTIDAD: " << count << endl;
 		return count;
 	}else if(size==500){
 		arrayData500 = new int[size];
@@ -37,8 +37,8 @@ int readFiles(int size){
 			//cout<<arrayData100[count]<<endl;
 		    count++;
 		}
-		cout  << endl;
-		cout << "CANTIDAD: " << count << endl;
+		//cout  << endl;
+		//cout << "CANTIDAD: " << count << endl;
 		return count;
 	}else if(size==1000){
 		arrayData1000 = new int[size];
@@ -47,8 +47,8 @@ int readFiles(int size){
 			//cout<<arrayData100[count]<<endl;
 		    count++;
 		}
-		cout  << endl;
-		cout << "CANTIDAD: " << count << endl;
+		//cout  << endl;
+		//cout << "CANTIDAD: " << count << endl;
 		return count;
 	}else if(size==2000){
 		arrayData2000 = new int[size];
@@ -57,8 +57,8 @@ int readFiles(int size){
 			//cout<<arrayData100[count]<<endl;
 		    count++;
 		}
-		cout  << endl;
-		cout << "CANTIDAD: " << count << endl;
+		//cout  << endl;
+		//cout << "CANTIDAD: " << count << endl;
 		return count;
 	}else if(size==3000){
 		arrayData3000 = new int[size];
@@ -67,8 +67,8 @@ int readFiles(int size){
 			//cout<<arrayData100[count]<<endl;
 		    count++;
 		}
-		cout  << endl;
-		cout << "CANTIDAD: " << count << endl;
+		//cout  << endl;
+		//cout << "CANTIDAD: " << count << endl;
 		return count;
 	}else if(size==10000){
 		arrayData10000 = new int[size];
@@ -77,8 +77,8 @@ int readFiles(int size){
 			//cout<<arrayData100[count]<<endl;
 		    count++;
 		}
-		cout  << endl;
-		cout << "CANTIDAD: " << count << endl;
+		//cout  << endl;
+		//cout << "CANTIDAD: " << count << endl;
 		return count;
 	}else if(size==20000){
 		arrayData20000 = new int[size];
@@ -87,8 +87,8 @@ int readFiles(int size){
 			//cout<<arrayData100[count]<<endl;
 		    count++;
 		}
-		cout  << endl;
-		cout << "CANTIDAD: " << count << endl;
+		//cout  << endl;
+		//cout << "CANTIDAD: " << count << endl;
 		return count;
 	}else if(size==30000){
 		arrayData30000 = new int[size];
@@ -97,8 +97,8 @@ int readFiles(int size){
 			//cout<<arrayData100[count]<<endl;
 		    count++;
 		}
-		cout  << endl;
-		cout << "CANTIDAD: " << count << endl;
+		//cout  << endl;
+		//cout << "CANTIDAD: " << count << endl;
 		return count;
 	}else if(size==100000){
 		arrayData100000 = new int[size];
@@ -107,8 +107,8 @@ int readFiles(int size){
 			//cout<<arrayData100[count]<<endl;
 		    count++;
 		}
-		cout  << endl;
-		cout << "CANTIDAD: " << count << endl;
+		//cout  << endl;
+		//cout << "CANTIDAD: " << count << endl;
 		return count;
 	}
 	

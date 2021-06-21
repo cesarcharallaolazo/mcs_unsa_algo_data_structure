@@ -30,10 +30,10 @@ int *arrayData100000;
 
 #include "readFile.h"
 #include "bubbleSort.h"
+#include "countingSort.h"
 
 using namespace std;
 
-//void bubbleSort(arrayDatosInt,sizeFile);
 void menuAlgorithm();
 void problema2(void);
 void problema3(void);
@@ -59,7 +59,7 @@ void menuAlgorithm(){
     printf("select option\n");
     printf("================================\n");
     printf("1)bubbleSort \n");
-    printf("2)\n");
+    printf("2)countingSort\n");
     printf("3)\n");
     printf("4)\n");
     printf("=================================\n");
@@ -71,14 +71,21 @@ void menuAlgorithm(){
 		bubbleSort(arrayData500,sizeFile500);
 		bubbleSort(arrayData1000,sizeFile1000);
 		bubbleSort(arrayData2000,sizeFile2000);
-		//bubbleSort(arrayData3000,sizeFile3000);
-		//bubbleSort(arrayData10000,sizeFile10000);
-		//bubbleSort(arrayData20000,sizeFile20000);
-		//bubbleSort(arrayData30000,sizeFile30000);
-		//bubbleSort(arrayData100000,sizeFile100000);
+		bubbleSort(arrayData3000,sizeFile3000);
+		bubbleSort(arrayData10000,sizeFile10000);
+		bubbleSort(arrayData20000,sizeFile20000);
+		bubbleSort(arrayData30000,sizeFile30000);
+		bubbleSort(arrayData100000,sizeFile100000);
+		menuAlgorithm();
     break;  
     case 2:
-    	problema2();
+    	countingSort(arrayData100,sizeFile100);
+    	countingSort(arrayData500,sizeFile500);
+    	countingSort(arrayData1000,sizeFile1000);
+    	countingSort(arrayData2000,sizeFile2000);
+    	countingSort(arrayData3000,sizeFile3000);
+		countingSort(arrayData100000,sizeFile100000);
+    	menuAlgorithm();
     break;
     case 3:
     	problema3();

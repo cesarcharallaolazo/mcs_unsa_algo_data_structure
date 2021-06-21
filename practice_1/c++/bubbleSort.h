@@ -2,12 +2,12 @@
 #include <ctime> 
 using namespace std;
 
-void bubbleSort(int array[],int n){
+void bubbleSort(int array[],int size){
 	unsigned t0, t1;
 	t0=clock();
 		int i, j, temp;
-	    for(i=0; i<(n-1); i++){
-	        for(j=0; j<(n-i-1); j++){
+	    for(i=0; i<(size-1); i++){
+	        for(j=0; j<(size-i-1); j++){
 	            if(array[j]>array[j+1]){
 	                temp = array[j];
 	                array[j] = array[j+1];
@@ -15,13 +15,11 @@ void bubbleSort(int array[],int n){
 	            }
 	        }
 	    }
-	    cout<<"\n Array Sorted Successfully!\n";
-	    cout<<"\n The New Array is: \n";
-	    for(i=0; i<n; i++)
+	    /*for(i=0; i<size; i++)
 	        cout<<array[i]<<",";
-	    cout<<endl;
+	    cout<<endl;*/
 	t1 = clock();
  
 	double time = (double(t1-t0)/CLOCKS_PER_SEC);
-	cout << "Execution Time: " << time << endl;
+	cout << "Size: " <<size << " Execution Time bubbleSort: " << time << endl;
 }
