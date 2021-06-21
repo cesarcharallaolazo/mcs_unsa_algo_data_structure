@@ -67,7 +67,7 @@ void menuAlgorithm(){
     printf("=================================\n");
     switch(opc){
     case 1: //buuble sort
-	    bubbleSort(arrayData100,sizeFile100);
+	    /*bubbleSort(arrayData100,sizeFile100);
 		bubbleSort(arrayData500,sizeFile500);
 		bubbleSort(arrayData1000,sizeFile1000);
 		bubbleSort(arrayData2000,sizeFile2000);
@@ -75,9 +75,9 @@ void menuAlgorithm(){
 		bubbleSort(arrayData10000,sizeFile10000);
 		bubbleSort(arrayData20000,sizeFile20000);
 		bubbleSort(arrayData30000,sizeFile30000);
-		bubbleSort(arrayData100000,sizeFile100000);
+		bubbleSort(arrayData100000,sizeFile100000);*/
 		
-		/*string tiempo=bubbleSort(arrayData100,sizeFile100);
+		string tiempo=bubbleSort(arrayData100,sizeFile100);
 		outfile << "100,"+tiempo<< std::endl;
 		tiempo=bubbleSort(arrayData500,sizeFile500);
 		outfile << "500,"+tiempo<< std::endl;
@@ -95,7 +95,7 @@ void menuAlgorithm(){
 		outfile << "30000,"+tiempo<< std::endl;
 		tiempo=bubbleSort(arrayData100000,sizeFile100000);
 		outfile << "100000,"+tiempo<< std::endl;
-		outfile.close();*/
+		outfile.close();
 		
 		menuAlgorithm();
     break;  

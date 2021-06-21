@@ -17,7 +17,6 @@ void insertionSort(int arr[], int size){
 	        arr[j + 1] = key;
 	    }
 	t1 = clock();
- 
 	double time = (double(t1-t0)/CLOCKS_PER_SEC);
 	cout << "Size: " <<size << " Execution Time insertionSort: " << time << endl;
 }
