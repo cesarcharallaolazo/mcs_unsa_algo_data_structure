@@ -31,14 +31,11 @@ int *arrayData100000;
 #include "readFile.h"
 #include "bubbleSort.h"
 #include "countingSort.h"
+#include "insertionSort.h"
+#include "quickSort.h"
 
 using namespace std;
-
 void menuAlgorithm();
-void problema2(void);
-void problema3(void);
-void problema4(void);
-//// aawdawdaqwdawd
 void menu(void);
 int main(){
 	sizeFile100=readFiles(100);
@@ -60,13 +57,16 @@ void menuAlgorithm(){
     printf("================================\n");
     printf("1)bubbleSort \n");
     printf("2)countingSort\n");
-    printf("3)\n");
-    printf("4)\n");
+    printf("3)heapSort\n");
+    printf("4)insertionSort\n");
+    printf("5)mergeSort\n");
+    printf("6)quickSort\n");
+    printf("7)SelectionSort\n");
     printf("=================================\n");
     scanf("%d",&opc);
     printf("=================================\n");
     switch(opc){
-    case 1: 
+    case 1: //buuble sort
 	    bubbleSort(arrayData100,sizeFile100);
 		bubbleSort(arrayData500,sizeFile500);
 		bubbleSort(arrayData1000,sizeFile1000);
@@ -78,30 +78,42 @@ void menuAlgorithm(){
 		bubbleSort(arrayData100000,sizeFile100000);
 		menuAlgorithm();
     break;  
-    case 2:
+    case 2: // counting sort
     	countingSort(arrayData100,sizeFile100);
     	countingSort(arrayData500,sizeFile500);
     	countingSort(arrayData1000,sizeFile1000);
     	countingSort(arrayData2000,sizeFile2000);
     	countingSort(arrayData3000,sizeFile3000);
+    	countingSort(arrayData10000,sizeFile10000);
+		countingSort(arrayData20000,sizeFile20000);
+		countingSort(arrayData30000,sizeFile30000);
 		countingSort(arrayData100000,sizeFile100000);
     	menuAlgorithm();
     break;
-    case 3:
-    	problema3();
+    case 3:// heap sort
+    	
     break;
-    case 4:
-    	problema4();
+    case 4: //insertion sort
+    	insertionSort(arrayData100,sizeFile100);
+    	insertionSort(arrayData500,sizeFile500);
+    	insertionSort(arrayData1000,sizeFile1000);
+    	insertionSort(arrayData2000,sizeFile2000);
+    	insertionSort(arrayData3000,sizeFile3000);
+    	insertionSort(arrayData10000,sizeFile10000);
+		insertionSort(arrayData20000,sizeFile20000);
+		insertionSort(arrayData30000,sizeFile30000);
+		insertionSort(arrayData100000,sizeFile100000);
+    break;
+    case 5: //merge sort
+    	
+    break;
+    case 6: //quick sort
+    	unsigned t0, t1;
+		t0=clock();
+    		quicksort(arrayData100000,0,sizeFile100000-1);
+    	t1 = clock();
+    	double time = (double(t1-t0)/CLOCKS_PER_SEC);
+		cout << "Size: " <<sizeFile100000 << " Execution Time quickSort100: "<< time << endl;
     break;
     }
 }
-void problema2(){
-    
-}
-void problema3(){
-   
-}
-void problema4(){
-   
-}
-
