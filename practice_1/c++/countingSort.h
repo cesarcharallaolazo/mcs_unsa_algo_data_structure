@@ -1,10 +1,12 @@
 #include <algorithm>
 #include <iostream>
+#include <sstream>
+#include <fstream>
 #include <vector>
 #include <ctime> 
 using namespace std;
 
-void countingSort(int array[], int size) {
+string countingSort(int array[], int size) {
 	unsigned t0, t1;
 	t0=clock();
 		int output[size]; //Salida
@@ -36,5 +38,9 @@ void countingSort(int array[], int size) {
 		cout<<endl;*/
   	t1 = clock();
 	double time = (double(t1-t0)/CLOCKS_PER_SEC);
-	cout << "Size: " <<size << " Execution Time countingSort: "<< time << endl;
+	std::ostringstream sstream1;
+	sstream1 << time;
+	string time_ = sstream1.str();
+	cout << "Execution Time countingSort" << size <<": "<< time_ << endl;
+	return time_;
 }
