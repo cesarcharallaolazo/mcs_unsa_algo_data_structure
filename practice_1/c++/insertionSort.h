@@ -2,7 +2,7 @@
 #include <ctime> 
 using namespace std;
 
-void insertionSort(int arr[], int size){
+string insertionSort(int arr[], int size){
 	unsigned t0, t1;
 	t0=clock();
 	    int i, key, j;
@@ -17,5 +17,9 @@ void insertionSort(int arr[], int size){
 	    }
 	t1 = clock();
 	double time = (double(t1-t0)/CLOCKS_PER_SEC);
-	cout << "Size: " <<size << " Execution Time insertionSort: " << time << endl;
+	std::ostringstream sstream;
+	sstream << time;
+	string time_ = sstream.str();
+	cout << "Execution Time insertionSort: " << size <<": "<< time_ << endl;
+	return time_;
 }
