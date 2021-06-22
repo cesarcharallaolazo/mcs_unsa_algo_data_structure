@@ -1,5 +1,8 @@
+<<<<<<< Updated upstream
+=======
 
-#include<conio.h>
+>>>>>>> Stashed changes
+#include<ncurses.h>
 #include<math.h>
 #include <vector>
 #include <errno.h>
@@ -9,52 +12,60 @@
 #include <stdlib.h>
 #include <string>
 #include <iostream>
-#include <sstream>
 #include <fstream>
-int sizeFile100, sizeFile500,sizeFile1000,sizeFile2000,sizeFile3000,sizeFile4000,sizeFile5000,sizeFile6000,sizeFile7000,sizeFile8000,sizeFile9000,
- sizeFile10000, sizeFile20000,sizeFile30000,sizeFile40000,sizeFile50000, sizeFile60000, sizeFile70000,sizeFile80000,sizeFile90000,sizeFile100000;
- 
-int *arrayData100,*arrayData500,*arrayData1000,*arrayData2000,*arrayData3000,*arrayData4000,*arrayData5000,*arrayData6000,*arrayData7000,*arrayData8000,*arrayData9000,
- *arrayData10000,*arrayData20000,*arrayData30000,*arrayData40000,*arrayData50000,*arrayData60000,*arrayData70000,*arrayData80000,*arrayData90000,*arrayData100000; 
+int sizeFile100;
+int sizeFile500;
+int sizeFile1000;
+int sizeFile2000;
+int sizeFile3000;
+int sizeFile10000;
+int sizeFile20000;
+int sizeFile30000;
+int sizeFile100000;
+
+int *arrayData100;
+int *arrayData500;
+int *arrayData1000;
+int *arrayData2000;
+int *arrayData3000;
+int *arrayData10000;
+int *arrayData20000;
+int *arrayData30000;
+int *arrayData100000;
 
 #include "readFile.h"
 #include "bubbleSort.h"
+<<<<<<< Updated upstream
+=======
+#include "selectionSort.h"
+#include "mergeSort.h"
+#include "heapSort.h"
 #include "countingSort.h"
 #include "insertionSort.h"
 #include "quickSort.h"
+>>>>>>> Stashed changes
 
+
+// bubble soprt, heap sort, merge sort, selection sort
 using namespace std;
-void menuAlgorithm();
-void menu(void);
-void readTotalFiles();
-void callOfstreamBubbleSort();
-void callOfstreamCountingSort();
 
-void readTotalFiles(){
+//void bubbleSort(arrayDatosInt,sizeFile);
+void menuAlgorithm();
+void problema2(void);
+void problema3(void);
+void problema4(void);
+
+void menu(void);
+int main(){
 	sizeFile100=readFiles(100);
 	sizeFile500=readFiles(500);
 	sizeFile1000=readFiles(1000);
 	sizeFile2000=readFiles(2000);
 	sizeFile3000=readFiles(3000);
-	sizeFile4000=readFiles(4000);
-	sizeFile5000=readFiles(5000);
-	sizeFile6000=readFiles(6000);
-	sizeFile7000=readFiles(7000);
-	sizeFile8000=readFiles(8000);
-	sizeFile9000=readFiles(9000);
 	sizeFile10000=readFiles(10000);
 	sizeFile20000=readFiles(20000);
 	sizeFile30000=readFiles(30000);
-	sizeFile40000=readFiles(40000);
-	sizeFile50000=readFiles(50000);
-	sizeFile60000=readFiles(60000);
-	sizeFile70000=readFiles(70000);
-	sizeFile80000=readFiles(80000);
-	sizeFile90000=readFiles(90000);
 	sizeFile100000=readFiles(100000);
-}
-int main(){
-	readTotalFiles();
 	menuAlgorithm();
 }
 
@@ -64,36 +75,97 @@ void menuAlgorithm(){
     printf("select option\n");
     printf("================================\n");
     printf("1)bubbleSort \n");
-    printf("2)countingSort\n");
-    printf("3)heapSort\n");
-    printf("4)insertionSort\n");
-    printf("5)mergeSort\n");
-    printf("6)quickSort\n");
-    printf("7)SelectionSort\n");
+    printf("2)\n");
+    printf("3)\n");
+    printf("4)\n");
     printf("=================================\n");
     scanf("%d",&opc);
     printf("=================================\n");
     switch(opc){
-    case 1: //buuble sort
-    	try {
-    		callOfstreamBubbleSort();
-    	}
-		catch (...) {
-		  cout << "Error";
+    case 1: 
+		{
+		ofstream outfile ("BubbleSort.txt");
+
+		string tiempo=bubbleSort(arrayData100,sizeFile100);
+		outfile << "100,"+tiempo<< std::endl;
+		tiempo=bubbleSort(arrayData500,sizeFile500);
+		outfile << "500,"+tiempo<< std::endl;
+		tiempo=bubbleSort(arrayData1000,sizeFile1000);
+		outfile << "1000,"+tiempo<< std::endl;
+		tiempo=bubbleSort(arrayData2000,sizeFile2000);
+		outfile << "2000,"+tiempo<< std::endl;
+		tiempo=bubbleSort(arrayData3000,sizeFile3000);
+		outfile << "3000,"+tiempo<< std::endl;
+		tiempo=bubbleSort(arrayData10000,sizeFile10000);
+		outfile << "10000,"+tiempo<< std::endl;
+		tiempo=bubbleSort(arrayData20000,sizeFile20000);
+		outfile << "20000,"+tiempo<< std::endl;
+		tiempo=bubbleSort(arrayData30000,sizeFile30000);
+		outfile << "30000,"+tiempo<< std::endl;
+		tiempo=bubbleSort(arrayData100000,sizeFile100000);
+		outfile << "100000,"+tiempo<< std::endl;
+		outfile.close();
 		}
-		menuAlgorithm();
     break;  
-    case 2: // counting sort
-    	try {
-    		callOfstreamCountingSort();
-		}
-		catch (...) {
-		  	cout << "Error";
-		}
-    	menuAlgorithm();
+    case 2:
+    	problema2();
     break;
+<<<<<<< Updated upstream
+    case 3:
+    	problema3();
+    break;
+    case 4:
+    	problema4();
+=======
     case 3:// heap sort
-    	cout<<"heap sort";
+	{
+cout<<"heap sort:"<<endl;
+		std::ofstream outfile ("HeapSort.txt");
+	string tiempo=heapSort(arrayData100,sizeFile100);
+	outfile << "100,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData500,sizeFile500);
+	outfile << "500,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData1000,sizeFile1000);
+	outfile << "1000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData2000,sizeFile2000);
+	outfile << "2000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData3000,sizeFile3000);
+	outfile << "3000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData4000,sizeFile4000);
+	outfile << "4000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData5000,sizeFile5000);
+	outfile << "5000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData6000,sizeFile6000);
+	outfile << "6000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData7000,sizeFile7000);
+	outfile << "7000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData8000,sizeFile8000);
+	outfile << "8000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData9000,sizeFile9000);
+	outfile << "9000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData10000,sizeFile10000);
+	outfile << "10000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData20000,sizeFile20000);
+	outfile << "20000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData30000,sizeFile30000);
+	outfile << "30000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData40000,sizeFile40000);
+	outfile << "40000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData50000,sizeFile50000);
+	outfile << "50000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData60000,sizeFile60000);
+	outfile << "60000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData70000,sizeFile70000);
+	outfile << "70000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData80000,sizeFile80000);
+	outfile << "80000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData90000,sizeFile90000);
+	outfile << "90000,"+tiempo<< std::endl;
+	tiempo=heapSort(arrayData100000,sizeFile100000);
+	outfile << "100000,"+tiempo<< std::endl;
+	outfile.close();
+	}
+    	
     break;
     case 4: //insertion sort
     
@@ -108,108 +180,124 @@ void menuAlgorithm(){
 		insertionSort(arrayData100000,sizeFile100000);
     break;
     case 5: //merge sort
-    	cout<<"merge sort";
+    	{
+cout<<"Merge sort:"<<endl;
+		std::ofstream outfile ("mergeSort.txt");
+	string tiempo=mergeSort(arrayData100,0,sizeFile100);
+	outfile << "100,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData500,0,sizeFile500);
+	outfile << "500,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData1000,0,sizeFile1000);
+	outfile << "1000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData2000,0,sizeFile2000);
+	outfile << "2000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData3000,0,sizeFile3000);
+	outfile << "3000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData4000,0,sizeFile4000);
+	outfile << "4000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData5000,0,sizeFile5000);
+	outfile << "5000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData6000,0,sizeFile6000);
+	outfile << "6000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData7000,0,sizeFile7000);
+	outfile << "7000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData8000,0,sizeFile8000);
+	outfile << "8000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData9000,0,sizeFile9000);
+	outfile << "9000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData10000,0,sizeFile10000);
+	outfile << "10000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData20000,0,sizeFile20000);
+	outfile << "20000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData30000,0,sizeFile30000);
+	outfile << "30000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData40000,0,sizeFile40000);
+	outfile << "40000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData50000,0,sizeFile50000);
+	outfile << "50000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData60000,0,sizeFile60000);
+	outfile << "60000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData70000,0,sizeFile70000);
+	outfile << "70000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData80000,0,sizeFile80000);
+	outfile << "80000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData90000,0,sizeFile90000);
+	outfile << "90000,"+tiempo<< std::endl;
+	tiempo=mergeSort(arrayData100000,0,sizeFile100000);
+	outfile << "100000,"+tiempo<< std::endl;
+	outfile.close();
+	}
     break;
     case 6: //quick sort
+	{
     	unsigned t0, t1;
 		t0=clock();
     		quicksort(arrayData100000,0,sizeFile100000-1);
     	t1 = clock();
     	double time = (double(t1-t0)/CLOCKS_PER_SEC);
 		cout << "Size: " <<sizeFile100000 << " Execution Time quickSort100: "<< time << endl;
+	}
     break;
-    }
-}
-void callOfstreamBubbleSort(){
-	std::ofstream outfile ("BubbleSort.txt");
-	string tiempo=bubbleSort(arrayData100,sizeFile100);
+	case 7: //selection sort
+    	{
+cout<<"Selection sort:"<<endl;
+		std::ofstream outfile ("selectionSort.txt");
+	string tiempo=selectionSort(arrayData100,sizeFile100);
 	outfile << "100,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData500,sizeFile500);
+	tiempo=selectionSort(arrayData500,sizeFile500);
 	outfile << "500,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData1000,sizeFile1000);
+	tiempo=selectionSort(arrayData1000,sizeFile1000);
 	outfile << "1000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData2000,sizeFile2000);
+	tiempo=selectionSort(arrayData2000,sizeFile2000);
 	outfile << "2000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData3000,sizeFile3000);
+	tiempo=selectionSort(arrayData3000,sizeFile3000);
 	outfile << "3000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData4000,sizeFile4000);
+	tiempo=selectionSort(arrayData4000,sizeFile4000);
 	outfile << "4000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData5000,sizeFile5000);
+	tiempo=selectionSort(arrayData5000,sizeFile5000);
 	outfile << "5000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData6000,sizeFile6000);
+	tiempo=selectionSort(arrayData6000,sizeFile6000);
 	outfile << "6000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData7000,sizeFile7000);
+	tiempo=selectionSort(arrayData7000,sizeFile7000);
 	outfile << "7000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData8000,sizeFile8000);
+	tiempo=selectionSort(arrayData8000,sizeFile8000);
 	outfile << "8000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData9000,sizeFile9000);
+	tiempo=selectionSort(arrayData9000,sizeFile9000);
 	outfile << "9000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData10000,sizeFile10000);
+	tiempo=selectionSort(arrayData10000,sizeFile10000);
 	outfile << "10000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData20000,sizeFile20000);
+	tiempo=selectionSort(arrayData20000,sizeFile20000);
 	outfile << "20000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData30000,sizeFile30000);
+	tiempo=selectionSort(arrayData30000,sizeFile30000);
 	outfile << "30000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData40000,sizeFile40000);
+	tiempo=selectionSort(arrayData40000,sizeFile40000);
 	outfile << "40000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData50000,sizeFile50000);
+	tiempo=selectionSort(arrayData50000,sizeFile50000);
 	outfile << "50000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData60000,sizeFile60000);
+	tiempo=selectionSort(arrayData60000,sizeFile60000);
 	outfile << "60000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData70000,sizeFile70000);
+	tiempo=selectionSort(arrayData70000,sizeFile70000);
 	outfile << "70000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData80000,sizeFile80000);
+	tiempo=selectionSort(arrayData80000,sizeFile80000);
 	outfile << "80000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData90000,sizeFile90000);
+	tiempo=selectionSort(arrayData90000,sizeFile90000);
 	outfile << "90000,"+tiempo<< std::endl;
-	tiempo=bubbleSort(arrayData100000,sizeFile100000);
+	tiempo=selectionSort(arrayData100000,sizeFile100000);
 	outfile << "100000,"+tiempo<< std::endl;
 	outfile.close();
+	}
+>>>>>>> Stashed changes
+    break;
+
+    }
 }
-void callOfstreamCountingSort(){
-	std::ofstream outfile2 ("CountingSort.txt");
-	string tiempo=countingSort(arrayData100,sizeFile100);
-	outfile2 << "100,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData500,sizeFile500);
-	outfile2 << "500,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData1000,sizeFile1000);
-	outfile2 << "1000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData2000,sizeFile2000);
-	outfile2 << "2000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData3000,sizeFile3000);
-	outfile2 << "3000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData4000,sizeFile4000);
-	outfile2 << "4000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData5000,sizeFile5000);
-	outfile2 << "5000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData6000,sizeFile6000);
-	outfile2 << "6000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData7000,sizeFile7000);
-	outfile2 << "7000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData8000,sizeFile8000);
-	outfile2 << "8000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData9000,sizeFile9000);
-	outfile2 << "9000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData10000,sizeFile10000);
-	outfile2 << "10000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData20000,sizeFile20000);
-	outfile2 << "20000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData30000,sizeFile30000);
-	outfile2 << "30000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData40000,sizeFile40000);
-	outfile2 << "40000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData50000,sizeFile50000);
-	outfile2 << "50000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData60000,sizeFile60000);
-	outfile2 << "60000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData70000,sizeFile70000);
-	outfile2 << "70000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData80000,sizeFile80000);
-	outfile2 << "80000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData90000,sizeFile90000);
-	outfile2 << "90000,"+tiempo<< std::endl;
-	tiempo=countingSort(arrayData100000,sizeFile100000);
-	outfile2 << "100000,"+tiempo<< std::endl;
-	outfile2.close();
+void problema2(){
+    
+}
+void problema3(){
+   
+}
+void problema4(){
+   
 }
 
