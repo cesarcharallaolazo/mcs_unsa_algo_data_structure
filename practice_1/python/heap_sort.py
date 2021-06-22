@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Jun 18 21:59:50 2021
+Created on Mon Jun 21 22:10:18 2021
 
 @author: User
 """
@@ -9,21 +9,23 @@ import glob
 import json
 import re
 from timeit import default_timer
-def Bubble_Sort (arr):
+from heapq import heappop, heappush
+
+def heap_sort(array):
     inicio = default_timer ()
-    band= False
-    while  band == False:
-        band=True
-        for i in range(len(arr)-1):
-            if arr[i]>arr[i+1]:
-                aux=arr[i]
-                arr[i]=arr[i+1]
-                arr[i+1]=aux
-                band=False
+    heap = []
+    for element in array:
+        heappush(heap, element)
+
+    ordered = []
+    
+     # While we have elements left in the heap
+    while heap:
+        ordered.append(heappop(heap))
     
     fin = default_timer ()
     # print(fin-inicio)
-    return (fin-inicio)*1000    
+    return (fin-inicio)*1000 
 
 lista_archivos_prueba = [f for f in glob.glob("Bases_Datos_Numeros/*.txt")]
 
@@ -31,7 +33,7 @@ evaluation_result_json = "evaluation_time.json"
 evaluation_results_dict = json.load(open(evaluation_result_json, "rb"))
 # print(evaluation_results_dict)
 
-evaluation_results_dict["Bubble_sort"] = {}
+evaluation_results_dict["heap_sort"] = {}
 
 for i in lista_archivos_prueba:
     my_file = open(i, "r")
@@ -41,13 +43,15 @@ for i in lista_archivos_prueba:
         
         listas.append(int(j))
     # print(i)  
-    Calculado = Bubble_Sort(listas)
+    Calculado = heap_sort(listas)
     #print(i)
     valor_actual = re.findall('\d+', i )
     print(valor_actual[0])
     print(Calculado)
-    evaluation_results_dict["Bubble_sort"][str(valor_actual[0])] =  Calculado
+    evaluation_results_dict["heap_sort"][str(valor_actual[0])] =  Calculado
     print("********")
     
 with open(evaluation_result_json, 'w') as outfile:
     json.dump(evaluation_results_dict, outfile)
+
+  
