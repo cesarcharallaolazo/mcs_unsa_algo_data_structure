@@ -2,13 +2,8 @@
 #include <ctime> 
 using namespace std;
 
-<<<<<<< Updated upstream
 string bubbleSort(int array[],int n){
 	unsigned t0, t1;
-=======
-string bubbleSort(int array[],int size){
-	unsigned t0, t1;//inicializamos valores de tiempo
->>>>>>> Stashed changes
 	t0=clock();
 		int i, j, temp;
 	    for(i=0; i<(n-1); i++){
