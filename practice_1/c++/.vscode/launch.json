@@ -7,15 +7,9 @@
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
-<<<<<<< Updated upstream
-      "cwd": "/media/paul/DiscoD/ESTUDIOS/MAESTRIA/mcs_unsa_algo_data_structure/practice_1/c++",
-      "environment": [],
-      "program": "/media/paul/DiscoD/ESTUDIOS/MAESTRIA/mcs_unsa_algo_data_structure/practice_1/c++/build/Debug/outDebug",
-=======
       "cwd": "/media/paul/DiscoD/ESTUDIOS/MAESTRIA/PRACTICA1/mcs_unsa_algo_data_structure/practice_1/c++",
       "environment": [],
       "program": "/media/paul/DiscoD/ESTUDIOS/MAESTRIA/PRACTICA1/mcs_unsa_algo_data_structure/practice_1/c++/build/Debug/outDebug",
->>>>>>> Stashed changes
       "internalConsoleOptions": "openOnSessionStart",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
