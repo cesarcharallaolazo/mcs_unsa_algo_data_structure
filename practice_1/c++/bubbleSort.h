@@ -2,8 +2,13 @@
 #include <ctime> 
 using namespace std;
 
+<<<<<<< Updated upstream
 string bubbleSort(int array[],int n){
 	unsigned t0, t1;
+=======
+string bubbleSort(int array[],int size){
+	unsigned t0, t1;//inicializamos valores de tiempo
+>>>>>>> Stashed changes
 	t0=clock();
 		int i, j, temp;
 	    for(i=0; i<(n-1); i++){
@@ -15,11 +20,8 @@ string bubbleSort(int array[],int n){
 	            }
 	        }
 	    }
-	    //cout<<"\n Array Sorted Successfully!\n";
-	    //cout<<"\n The New Array is: \n";
-	    //for(i=0; i<n; i++)
-	     //   cout<<array[i]<<",";
-	    //cout<<endl;
+
+	//hacemos calculo del tiempo que toma el algoritmo
 	t1 = clock();
  
 	double time = (double(t1-t0)/CLOCKS_PER_SEC);
