@@ -15,6 +15,9 @@ string insertionSort(int arr[], int size){
 	        }
 	        arr[j + 1] = key;
 	    }
+	    /*for(i=0; i<size; i++)
+	        cout<<arr[i]<<",";
+	    cout<<endl;*/
 	t1 = clock();
 	double time = (double(t1-t0)/CLOCKS_PER_SEC);
 	std::ostringstream sstream;
