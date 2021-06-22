@@ -1,4 +1,4 @@
-#include<ncurses.h>
+
 #include <math.h>
 #include <vector>
 #include <errno.h>
