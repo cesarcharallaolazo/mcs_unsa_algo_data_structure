@@ -37,7 +37,8 @@ string countingSort(int array[], int size) {
 			cout<<output[i]<<",";
 		cout<<endl;*/
   	t1 = clock();
-	double time = (double(t1-t0)/CLOCKS_PER_SEC);
+  	double time = 1000L*(double(t1-t0)/CLK_TCK);
+	//double time = (double(t1-t0)/CLOCKS_PER_SEC);
 	std::ostringstream sstream1;
 	sstream1 << time;
 	string time_ = sstream1.str();

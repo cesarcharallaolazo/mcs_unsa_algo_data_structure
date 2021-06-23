@@ -130,7 +130,7 @@ void menuAlgorithm(){
     }
 }
 void callOfstreamBubbleSort(){
-	std::ofstream outfile ("BubbleSort.txt");
+	std::ofstream outfile ("bubble_sort.txt");
 	string tiempo=bubbleSort(arrayData100,sizeFile100);
 	outfile << "100,"+tiempo<< std::endl;
 	tiempo=bubbleSort(arrayData500,sizeFile500);
@@ -176,7 +176,7 @@ void callOfstreamBubbleSort(){
 	outfile.close();
 }
 void callOfstreamCountingSort(){
-	std::ofstream outfile2 ("CountingSort.txt");
+	std::ofstream outfile2 ("counting_sort.txt");
 	string tiempo=countingSort(arrayData100,sizeFile100);
 	outfile2 << "100,"+tiempo<< std::endl;
 	tiempo=countingSort(arrayData500,sizeFile500);
@@ -222,7 +222,7 @@ void callOfstreamCountingSort(){
 	outfile2.close();
 }
 void callOfstreamHeapSort(){
-	std::ofstream outfile ("HeapSort.txt");
+	std::ofstream outfile ("heap_sort.txt");
 	string tiempo=heapSort(arrayData100,sizeFile100);
 	outfile << "100,"+tiempo<< std::endl;
 	tiempo=heapSort(arrayData500,sizeFile500);
@@ -268,7 +268,7 @@ void callOfstreamHeapSort(){
 	outfile.close();
 }
 void callOfstreamInsertionSort(){
-	std::ofstream outfile3 ("InsertionSort.txt");
+	std::ofstream outfile3 ("insertion_sort.txt");
 	string tiempo=insertionSort(arrayData100,sizeFile100);
 	outfile3 << "100,"+tiempo<< std::endl;
 	tiempo=insertionSort(arrayData500,sizeFile500);
@@ -314,7 +314,7 @@ void callOfstreamInsertionSort(){
 	outfile3.close();
 }
 void callOfstreamMergeSort(){
-	std::ofstream outfile ("mergeSort.txt");
+	std::ofstream outfile ("merge_sort.txt");
 	string tiempo=mergeSort(arrayData100,0,sizeFile100);
 	outfile << "100,"+tiempo<< std::endl;
 	tiempo=mergeSort(arrayData500,0,sizeFile500);
@@ -363,12 +363,13 @@ void callOfstreamQuicksort(){
 	unsigned t0, t1;
 	double time;
 	std::string tiempo ;
-	std::ofstream outfile4 ("QuickSort.txt");	
+	std::ofstream outfile4 ("quick_sort.txt");	
 	
 	t0=clock();
 		quicksort(arrayData100,0,sizeFile100-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	//time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile100<< " Execution Time quickSort 100: "<< time << endl;
 	std::ostringstream strs;
 	strs << time; 
@@ -377,7 +378,8 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData500,0,sizeFile500-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	//time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile500<< " Execution Time quickSort 500: "<< time << endl;
 	std::ostringstream strs1;
 	strs1 << time; 
@@ -386,7 +388,8 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData1000,0,sizeFile1000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	//time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile1000<< " Execution Time quickSort 1000: "<< time << endl;
 	std::ostringstream strs2;
 	strs2 << time; 
@@ -395,7 +398,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData2000,0,sizeFile2000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile2000<< " Execution Time quickSort 2000: "<< time << endl;
 	std::ostringstream strs3;
 	strs3 << time; 
@@ -404,7 +407,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData3000,0,sizeFile3000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile3000<< " Execution Time quickSort 3000: "<< time << endl;
 	std::ostringstream strs4;
 	strs4 << time; 
@@ -413,7 +416,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData4000,0,sizeFile4000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile4000<< " Execution Time quickSort 4000: "<< time << endl;
 	std::ostringstream strs5;
 	strs5 << time; 
@@ -422,7 +425,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData5000,0,sizeFile5000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile5000<< " Execution Time quickSort 5000: "<< time << endl;
 	std::ostringstream strs6;
 	strs6 << time; 
@@ -431,7 +434,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData6000,0,sizeFile6000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile6000<< " Execution Time quickSort 6000: "<< time << endl;
 	std::ostringstream strs7;
 	strs7 << time; 
@@ -440,7 +443,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData7000,0,sizeFile7000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile7000<< " Execution Time quickSort 7000: "<< time << endl;
 	std::ostringstream strs8;
 	strs8 << time; 
@@ -449,7 +452,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData8000,0,sizeFile8000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile8000<< " Execution Time quickSort 8000: "<< time << endl;
 	std::ostringstream strs9;
 	strs9 << time; 
@@ -458,7 +461,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData9000,0,sizeFile9000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile9000<< " Execution Time quickSort 9000: "<< time << endl;
 	std::ostringstream strs10;
 	strs10 << time; 
@@ -467,7 +470,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData10000,0,sizeFile10000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile10000<< " Execution Time quickSort 10000: "<< time << endl;
 	std::ostringstream strs11;
 	strs11 << time; 
@@ -476,7 +479,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData20000,0,sizeFile20000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile20000<< " Execution Time quickSort 20000: "<< time << endl;
 	std::ostringstream strs12;
 	strs12 << time; 
@@ -485,7 +488,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData30000,0,sizeFile30000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile30000<< " Execution Time quickSort 30000: "<< time << endl;
 	std::ostringstream strs13;
 	strs13 << time; 
@@ -494,7 +497,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData40000,0,sizeFile40000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile40000<< " Execution Time quickSort 40000: "<< time << endl;
 	std::ostringstream strs14;
 	strs14 << time; 
@@ -503,7 +506,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData50000,0,sizeFile50000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);	
 	cout << "Size: " <<sizeFile50000<< " Execution Time quickSort 50000: "<< time << endl;
 	std::ostringstream strs15;
 	strs15 << time; 
@@ -512,7 +515,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData60000,0,sizeFile60000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile60000<< " Execution Time quickSort 60000: "<< time << endl;
 	std::ostringstream strs16;
 	strs16 << time; 
@@ -521,7 +524,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData70000,0,sizeFile70000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile70000<< " Execution Time quickSort 70000: "<< time << endl;
 	std::ostringstream strs17;
 	strs17 << time; 
@@ -530,7 +533,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData80000,0,sizeFile80000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile80000<< " Execution Time quickSort 80000: "<< time << endl;
 	std::ostringstream strs18;
 	strs18 << time; 
@@ -539,7 +542,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData90000,0,sizeFile90000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile90000<< " Execution Time quickSort 90000: "<< time << endl;
 	std::ostringstream strs19;
 	strs19 << time; 
@@ -548,7 +551,7 @@ void callOfstreamQuicksort(){
 	t0=clock();
 		quicksort(arrayData100000,0,sizeFile100000-1);
 	t1 = clock();
-	time = (double(t1-t0)/CLOCKS_PER_SEC);
+	time = 1000L*(double(t1-t0)/CLK_TCK);
 	cout << "Size: " <<sizeFile100000<< " Execution Time quickSort 100000: "<< time << endl;
 	std::ostringstream strs20;
 	strs20 << time; 
@@ -557,7 +560,7 @@ void callOfstreamQuicksort(){
 	outfile4.close();
 }
 void callOfstreamSelectionSort(){
-	std::ofstream outfile ("selectionSort.txt");
+	std::ofstream outfile ("selection_sort.txt");
 	string tiempo=selectionSort(arrayData100,sizeFile100);
 	outfile << "100,"+tiempo<< std::endl;
 	tiempo=selectionSort(arrayData500,sizeFile500);

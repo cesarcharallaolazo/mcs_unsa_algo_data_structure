@@ -19,7 +19,8 @@ string insertionSort(int arr[], int size){
 	        cout<<arr[i]<<",";
 	    cout<<endl;*/
 	t1 = clock();
-	double time = (double(t1-t0)/CLOCKS_PER_SEC);
+	//double time = (double(t1-t0)/CLOCKS_PER_SEC);
+	double time = 1000L*(double(t1-t0)/CLK_TCK);
 	std::ostringstream sstream;
 	sstream << time;
 	string time_ = sstream.str();
