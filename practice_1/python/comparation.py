@@ -16,17 +16,47 @@ import glob
 # calculate_cpp_json_exection_time()
 
 evaluation_result_json = "./practice_1/python/evaluation_time_final.json"
-evaluation_results_dict = json.load(open(evaluation_result_json, "rb"))["c++"]
-# print(evaluation_results_dict)
+evaluation_results_dict = json.load(open(evaluation_result_json, "rb"))
 
-df = pd.DataFrame.from_dict(evaluation_results_dict)
-df.index = list(map(int, df.index))
-df = df.sort_index()
+# single_algo = {}
+# _ = list(evaluation_results_dict["python"]["counting_sort"].keys())
+# print(_)
+# for exp in evaluation_results_dict["python"].keys():
+#     print(exp)
+#     for x in _:
+#         single_algo["python"] = evaluation_results_dict["python"][exp][x]
+#         single_algo["c++"] = evaluation_results_dict["c++"][exp][x]
+# print(single_algo)
 
-# DRAW COMPARATION
 
-ax = df.plot(logy=True, sort_columns=True, legend=True)
-ax.set_xlabel("# Numbers to sort")
-ax.set_ylabel("MiliSeconds - Execution Time")
-plt.show()
+df_python = pd.DataFrame.from_dict(evaluation_results_dict["python"])
+df_python.index = list(map(int, df_python.index))
+df_python = df_python.sort_index()
+print(df_python)
 
+df_cpp = pd.DataFrame.from_dict(evaluation_results_dict["c++"])
+df_cpp.index = list(map(int, df_cpp.index))
+df_cpp = df_cpp.sort_index()
+print(df_cpp)
+
+# algo_l = ["bubble_sort"]
+algo_l = list(evaluation_results_dict["python"].keys())
+df_algo = pd.DataFrame()
+for algo in algo_l:
+    df_algo[algo + "_python"] = df_python[algo]
+    df_algo[algo + "_cpp"] = df_cpp[algo]
+    print(df_algo)
+    ax = df_algo.plot(logy=True, sort_columns=True, legend=True)
+    ax.set_xlabel("# Numbers to sort")
+    ax.set_ylabel("MiliSeconds - Execution Time")
+    plt.show()
+    df_algo = pd.DataFrame()
+
+
+#
+# # DRAW COMPARATION
+#
+# ax = df.plot(logy=True, sort_columns=True, legend=True)
+# ax.set_xlabel("# Numbers to sort")
+# ax.set_ylabel("MiliSeconds - Execution Time")
+# plt.show()
