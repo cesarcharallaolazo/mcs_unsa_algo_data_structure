@@ -48,7 +48,7 @@ tests_dict = get_data_experiments_dict()
 
 evaluation_result_json = "./practice_1/python/evaluation_time.json"
 evaluation_results_dict = json.load(open(evaluation_result_json, "rb"))
-print(evaluation_results_dict)
+# print(evaluation_results_dict)
 
 evaluation_results_dict["quick_sort"] = {}
 for exp in tests_dict.keys():
