@@ -234,7 +234,7 @@ int readFiles(int size){
 		cout << "size: " << count << endl;
 		return count;
 	}
-	
+	return 0;
 }
 
 
