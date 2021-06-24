@@ -1,4 +1,7 @@
 
+#define	CLOCKS_PER_SEC	((clock_t)1000)
+#define	CLK_TCK		CLOCKS_PER_SEC
+
 #include<math.h>
 #include <vector>
 #include <errno.h>
