@@ -73,7 +73,8 @@ string mergeSort(int array[], int const begin, int const end)
     //hacemos calculo del tiempo que toma el algoritmo
 	t1 = clock();
 	//double time = (double(t1-t0)/CLOCKS_PER_SEC);
-	double time = 1000L*(double(t1-t0)/CLK_TCK);
+	//double time = 1000L*(double(t1-t0)/CLK_TCK);
+    double time = (double(t1-t0)/CLK_TCK);
 	std::ostringstream sstream9;
 	sstream9 << time;
 	string time_ = sstream9.str();
