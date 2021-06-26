@@ -19,7 +19,7 @@ def get_data_experiments_dict():
     return experiments_dict
 
 
-def calculate_cpp_json_exection_time():
+def calculate_cpp_json_exection_time_modified():
     ### CALCULATE C++
 
     final_dict = {}
@@ -59,5 +59,22 @@ def calculate_cpp_json_exection_time():
         json.dump(evaluation_results_dict, outfile)
 
 
+def calculate_cpp_json_exection_time():
+    ## DRAW C++
+    cpp_dict = {}
+    for txt in glob.glob("./practice_1/c++/RESULTADOS_JOHNPAUL_MAC/*.txt"):
+        experiment = txt.split("/")[-1].split("-")[0].split(".")[0]
+        print(experiment)
+        # print(experiment)
+        df = pd.read_csv(txt, header=None).sort_values([0])
+        df = df.set_index(df[0])
+        dict = json.loads(df[[1]].to_json(orient="columns"))["1"]
+        cpp_dict[experiment] = dict
+
+    # print(cpp_dict)
+    with open("./practice_1/python/evaluation_time_cpp_jhon_mac.json", 'w') as outfile:
+        json.dump(cpp_dict, outfile)
+
 if __name__ == '__main__':
-    x = get_data_experiments_dict()
+    # x = get_data_experiments_dict()
+    calculate_cpp_json_exection_time()
