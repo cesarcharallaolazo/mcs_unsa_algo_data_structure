@@ -1,5 +1,8 @@
 //https://www.cs.usfca.edu/~galles/visualization/BTree.html
 //https://stackoverflow.com/questions/1331289/javascript-binary-search-tree-implementation
+//import {object} from './p5/p5.js';
+import {object} from './p5/prueba.js'
+
 function BinarySearchTree() {
     this.root = null;
 }
@@ -255,6 +258,9 @@ POSTORDER [ 3, 9, 8, 5, 30, 20, 10 ]
 
 var bst3 = new BinarySearchTree();
 bst3.add('j').add('f').add('k').add('z').add('a').add('h').add('d');
+
+//setup(bst3);
+
 console.log(bst3);
 console.log('BREADTHFIRST LTR', bst3.breadthFirstLTR());
 console.log('BREADTHFIRST RTL', bst3.breadthFirstRTL());
