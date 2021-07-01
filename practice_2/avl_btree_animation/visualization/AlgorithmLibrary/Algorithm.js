@@ -296,14 +296,11 @@ Algorithm.prototype.clearHistory = function()
 	this.actionHistory = [];
 }
 Algorithm.prototype.cmd = function(){
-	if (this.recordAnimation)
-	{
+	if (this.recordAnimation){
 		var command = arguments[0];
-		for(i = 1; i < arguments.length; i++)
-		{
+		for(i = 1; i < arguments.length; i++){
 			command = command + "<;>" + String(arguments[i]);
 		}
 		this.commands.push(command);
 	}
-	
 }
