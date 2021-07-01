@@ -1,4 +1,3 @@
-
 var FIRST_PRINT_POS_X = 50;
 var PRINT_VERTICAL_GAP = 20;
 var PRINT_MAX = 990;
