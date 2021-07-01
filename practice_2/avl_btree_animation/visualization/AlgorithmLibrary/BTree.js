@@ -20,7 +20,7 @@ var LINK_COLOR = "#060606";
 var HIGHLIGHT_CIRCLE_COLOR = "#000277";
 var FOREGROUND_COLOR = "#556BF5";
 var BACKGROUND_COLOR = "#FFFFFF";
-var PRINT_COLOR = FOREGROUND_COLOR;
+var PRINT_COLOR = "#1B1B1E";
 
 function BTree(am, w, h){
 	this.init(am, w, h);
@@ -51,7 +51,6 @@ BTree.prototype.init = function(am, w, h){
 	this.xPosOfNextLabel = 100;
 	this.yPosOfNextLabel = 200;
 }
-
 BTree.prototype.addControls =  function(){
 	this.controls = [];
 	this.insertField = addControlToAlgorithmBar("Text", "");
@@ -103,9 +102,7 @@ BTree.prototype.reset = function(){
 	this.ignoreInputs = true;
 	// maxDegreeButtonArray[this.max_degree].selected = true;
 	this.ignoreInputs = false;
-}
-
-		
+}	
 BTree.prototype.enableUI = function(event)
 {
 	var i;
@@ -160,8 +157,7 @@ BTree.prototype.insertCallback = function(event){
 		this.insertField.value = "";
 		this.implementAction(this.insertElement.bind(this),insertedValue);
 	}
-}
-		
+}		
 BTree.prototype.deleteCallback = function(event)
 {
 	var deletedValue = this.deleteField.value;
@@ -171,23 +167,18 @@ BTree.prototype.deleteCallback = function(event)
 		this.deleteField.value = "";
 		this.implementAction(this.deleteElement.bind(this),deletedValue);		
 	}
-}
-		
+}		
 BTree.prototype.clearCallback = function(event)
 {
 	this.implementAction(this.clearTree.bind(this), "");
-}
-		
-		
+}		
 BTree.prototype.premtiveSplitCallback = function(event)
 {
 	if (this.preemptiveSplit != this.premptiveSplitBox.checked)
 	{
 		this.implementAction(this.changePreemtiveSplit.bind(this), this.premptiveSplitBox.checked);
 	}
-}
-
-		
+}		
 BTree.prototype.changePreemtiveSplit = function(newValue)
 {
 	this.commands = new Array();
@@ -199,13 +190,10 @@ BTree.prototype.changePreemtiveSplit = function(newValue)
 	}
 	return this.commands;			
 }
-		
-
 BTree.prototype.printCallback = function(event) 
 {
 	this.implementAction(this.printTree.bind(this),"");						
 }
-
 BTree.prototype.printTree = function(unused)
 {
 	this.commands = new Array();
@@ -224,8 +212,7 @@ BTree.prototype.printTree = function(unused)
 	this.nextIndex = firstLabel;
 	this.cmd("SetText", this.messageID, "");
 	return this.commands;
-}
-		
+}		
 BTree.prototype.printTreeRec =function (tree)
 {
 	this.cmd("SetHighlight", tree.graphicID, 1);
@@ -283,7 +270,6 @@ BTree.prototype.printTreeRec =function (tree)
 	
 	
 }
-
 BTree.prototype.clearTree = function(ignored)
 {
 	this.commands = new Array();
@@ -292,7 +278,6 @@ BTree.prototype.clearTree = function(ignored)
 	this.nextIndex = 3;		
 	return this.commands;
 }
-
 BTree.prototype.deleteTree = function(tree)
 {
 	if (tree != null)
@@ -309,8 +294,6 @@ BTree.prototype.deleteTree = function(tree)
 		this.cmd("Delete", tree.graphicID);
 	}
 }
-
-
 BTree.prototype.changeDegree = function(degree)
 {
 	this.commands = new Array();
@@ -338,8 +321,6 @@ BTree.prototype.changeDegree = function(degree)
 	}
 	return this.commands;
 }
-
-
 BTree.prototype.findCallback = function(event)
 {
 	var findValue;
@@ -347,7 +328,6 @@ BTree.prototype.findCallback = function(event)
 	this.findField.value = "";
 	this.implementAction(this.findElement.bind(this),findValue);						
 }
-
 BTree.prototype.findElement = function(findValue)
 {
 	this.commands = new Array();
@@ -357,7 +337,6 @@ BTree.prototype.findElement = function(findValue)
 	
 	return this.commands;
 }
-
 BTree.prototype.findInTree = function(tree, val)
 {
 	if (tree != null)
@@ -414,8 +393,6 @@ BTree.prototype.findInTree = function(tree, val)
 		this.cmd("SetText", this.messageID, "Element " + val + " is not in the tree");
 	}
 }
-
-
 BTree.prototype.insertElement = function(insertedValue)
 {
 	this.commands = new Array();
@@ -465,7 +442,6 @@ BTree.prototype.insertElement = function(insertedValue)
 	return this.commands;
 	
 }
-
 BTree.prototype.insertNotFull = function(tree, insertValue)
 {
 	this.cmd("SetHighlight", tree.graphicID, 1);
@@ -511,9 +487,6 @@ BTree.prototype.insertNotFull = function(tree, insertValue)
 		}
 	}
 }
-
-
-
 BTree.prototype.insert = function(tree, insertValue)
 {
 	this.cmd("SetHighlight", tree.graphicID, 1);
@@ -550,7 +523,6 @@ BTree.prototype.insert = function(tree, insertValue)
 		this.insert(tree.children[findIndex], insertValue);				
 	}
 }
-
 BTree.prototype.insertRepair = function(tree) 
 {
 	if (tree.numKeys <= this.max_keys)
@@ -568,7 +540,6 @@ BTree.prototype.insertRepair = function(tree)
 		this.insertRepair(newNode);
 	}			
 }
-
 BTree.prototype.split = function(tree)
 {
 	this.cmd("SetText", this.messageID, "El nodo ahora contiene demaciadas claves. ");
@@ -716,7 +687,6 @@ BTree.prototype.split = function(tree)
 	
 	
 }
-
 BTree.prototype.deleteElement = function(deletedValue)
 {
 	this.commands = new Array();
@@ -744,7 +714,6 @@ BTree.prototype.deleteElement = function(deletedValue)
 	}
 	return this.commands;						
 }
-
 BTree.prototype.doDeleteNotEmpty = function(tree, val)
 {
 	if (tree != null)
@@ -979,9 +948,7 @@ BTree.prototype.doDeleteNotEmpty = function(tree, val)
 		}
 		
 	}
-}		
-
-
+}	
 BTree.prototype.doDelete = function(tree, val)
 {
 	if (tree != null)
@@ -1069,9 +1036,6 @@ BTree.prototype.doDelete = function(tree, val)
 		
 	}
 }
-
-
-
 BTree.prototype.mergeRight = function(tree) 
 {
 	this.cmd("SetText", this.messageID, "Merging node");
@@ -1153,8 +1117,6 @@ BTree.prototype.mergeRight = function(tree)
 	this.cmd("SetText", this.messageID, "");
 	return tree;
 }
-
-
 BTree.prototype.stealFromRight = function(tree, parentIndex) 
 {
 	// Steal from right sibling
@@ -1242,8 +1204,6 @@ BTree.prototype.stealFromRight = function(tree, parentIndex)
 	return tree;
 	
 }
-
-
 BTree.prototype.stealFromLeft = function(tree, parentIndex) 
 {
 	var parentNode = tree.parent;
@@ -1320,8 +1280,6 @@ BTree.prototype.stealFromLeft = function(tree, parentIndex)
 	this.cmd("SetText", this.messageID, "");
 	return tree;
 }
-
-
 BTree.prototype.repairAfterDelete = function(tree)
 {
 	if (tree.numKeys < this.min_keys)
@@ -1370,19 +1328,16 @@ BTree.prototype.repairAfterDelete = function(tree)
 		}
 	}
 }
-
 BTree.prototype.getLabelX = function(tree, index) 
 {
 	return tree.x - WIDTH_PER_ELEM * tree.numKeys / 2 + WIDTH_PER_ELEM / 2 + index * WIDTH_PER_ELEM;
 }
-
 BTree.prototype.resizeTree = function()
 {
 	this.resizeWidths(this.treeRoot);
 	this.setNewPositions(this.treeRoot, this.starting_x, STARTING_Y);
 	this.animateNewPositions(this.treeRoot);
 }
-
 BTree.prototype.setNewPositions = function(tree, xPosition, yPosition)
 {
 	if (tree != null)
@@ -1401,7 +1356,6 @@ BTree.prototype.setNewPositions = function(tree, xPosition, yPosition)
 		}				
 	}			
 }
-
 BTree.prototype.animateNewPositions = function(tree)
 {
 	if (tree == null)
@@ -1415,7 +1369,6 @@ BTree.prototype.animateNewPositions = function(tree)
 	}
 	this.cmd("Move", tree.graphicID, tree.x, tree.y);
 }
-
 BTree.prototype.resizeWidths = function(tree) 
 {
 	if (tree == null)
