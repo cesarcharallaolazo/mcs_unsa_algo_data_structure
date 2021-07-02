@@ -1,38 +1,10 @@
-// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
-//
-// Redistribution and use in source and binary forms, with or without modification, are
-// permitted provided that the following conditions are met:
-//
-// 1. Redistributions of source code must retain the above copyright notice, this list of
-// conditions and the following disclaimer.
-//
-// 2. Redistributions in binary form must reproduce the above copyright notice, this list
-// of conditions and the following disclaimer in the documentation and/or other materials
-// provided with the distribution.
-//
-// THIS SOFTWARE IS PROVIDED BY <COPYRIGHT HOLDER> ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-// FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> OR
-// CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-// ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-// NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-// The views and conclusions contained in the software and documentation are those of the
-// authors and should not be interpreted as representing official policies, either expressed
-// or implied, of the University of San Francisco
-
-
-
 var FIRST_PRINT_POS_X = 50;
 var PRINT_VERTICAL_GAP = 20;
 var PRINT_MAX = 990;
 var PRINT_HORIZONTAL_GAP = 50;
 
 var MIN_MAX_DEGREE = 3;
-var MAX_MAX_DEGREE = 7;
+var MAX_MAX_DEGREE = 3;
 
 var HEIGHT_DELTA  = 50;
 var NODE_SPACING = 3; 
@@ -43,133 +15,82 @@ var NODE_HEIGHT = 20;
 var MESSAGE_X = 5;
 var MESSAGE_Y = 10;
 
-var LINK_COLOR = "#007700";
-var HIGHLIGHT_CIRCLE_COLOR = "#007700";
-var FOREGROUND_COLOR = "#007700";
-var BACKGROUND_COLOR = "#EEFFEE";
-var PRINT_COLOR = FOREGROUND_COLOR;
+var LINK_COLOR = "#060606";
+var HIGHLIGHT_CIRCLE_COLOR = "#000277";
+var FOREGROUND_COLOR = "#556BF5";
+var BACKGROUND_COLOR = "#FFFFFF";
+var PRINT_COLOR = "#1B1B1E";
 
-
-
-function BTree(am, w, h)
-{
+function BTree(am, w, h){
 	this.init(am, w, h);
-
 }
-
 BTree.prototype = new Algorithm();
 BTree.prototype.varructor = BTree;
 BTree.superclass = Algorithm.prototype;
 
-
-
-
-
-BTree.prototype.init = function(am, w, h)
-{
+BTree.prototype.init = function(am, w, h){
 	BTree.superclass.init.call(this, am, w, h);
 	this.nextIndex = 0;
-
 	this.starting_x = w / 2;
-
 	this.preemptiveSplit = false
-	
-	
 	this.addControls();
-	
-	
 	this.max_keys = 2;
 	this.min_keys = 1;
 	this.split_index = 1;
-	
 	this.max_degree = 3;
-	
-	
-	
-	
 	this.messageID = this.nextIndex++;
 	this.cmd("CreateLabel", this.messageID, "", MESSAGE_X, MESSAGE_Y, 0);
 	this.moveLabel1ID = this.nextIndex++;
 	this.moveLabel2ID = this.nextIndex++;
-	
 	animationManager.StartNewAnimation(this.commands);
 	animationManager.skipForward();
 	animationManager.clearHistory();
 	this.commands = new Array();
-	
 	this.first_print_pos_y = h - 3 * PRINT_VERTICAL_GAP;
-
-	
 	this.xPosOfNextLabel = 100;
 	this.yPosOfNextLabel = 200;
 }
-
-BTree.prototype.addControls =  function()
-{
+BTree.prototype.addControls =  function(){
 	this.controls = [];
-	
 	this.insertField = addControlToAlgorithmBar("Text", "");
 	this.insertField.onkeydown = this.returnSubmit(this.insertField,  this.insertCallback.bind(this), 4);
 	this.controls.push(this.insertField);
-	
-	this.insertButton = addControlToAlgorithmBar("Button", "Insert");
+	this.insertButton = addControlToAlgorithmBar("Button", "Insertar nodo");
 	this.insertButton.onclick = this.insertCallback.bind(this);
 	this.controls.push(this.insertButton);
-	
 	this.deleteField = addControlToAlgorithmBar("Text", "");
 	this.deleteField.onkeydown = this.returnSubmit(this.deleteField,  this.deleteCallback.bind(this), 4);
 	this.controls.push(this.deleteField);
-	
-	this.deleteButton = addControlToAlgorithmBar("Button", "Delete");
+	this.deleteButton = addControlToAlgorithmBar("Button", "Eliminar nodo");
 	this.deleteButton.onclick = this.deleteCallback.bind(this);
 	this.controls.push(this.deleteButton);
-	
 	this.findField = addControlToAlgorithmBar("Text", "");
 	this.findField.onkeydown = this.returnSubmit(this.findField,  this.findCallback.bind(this), 4);
 	this.controls.push(this.findField);
-	
-	this.findButton = addControlToAlgorithmBar("Button", "Find");
+	this.findButton = addControlToAlgorithmBar("Button", "encontrar");
 	this.findButton.onclick = this.findCallback.bind(this);
 	this.controls.push(this.findButton);
-	
-	this.printButton = addControlToAlgorithmBar("Button", "Print");
+	this.printButton = addControlToAlgorithmBar("Button", "imprimir");
 	this.printButton.onclick = this.printCallback.bind(this);
 	this.controls.push(this.printButton);
-	
-	this.clearButton = addControlToAlgorithmBar("Button", "Clear");
+	this.clearButton = addControlToAlgorithmBar("Button", "limpiar");
 	this.clearButton.onclick = this.clearCallback.bind(this);
 	this.controls.push(this.clearButton);
-	
 	var i;
 	radioButtonNames = [];
-	for (i = MIN_MAX_DEGREE; i <= MAX_MAX_DEGREE; i++)
-	{
+	for (i = MIN_MAX_DEGREE; i <= MAX_MAX_DEGREE; i++){
 		radioButtonNames.push("Max. Degree = " + String(i));
 	}
-	
 	this.maxDegreeRadioButtons = addRadioButtonGroupToAlgorithmBar(radioButtonNames, "MaxDegree");
-	
 	this.maxDegreeRadioButtons[0].checked = true;
-	for(i = 0; i < this.maxDegreeRadioButtons.length; i++)
-	{
+	for(i = 0; i < this.maxDegreeRadioButtons.length; i++){
 		this.maxDegreeRadioButtons[i].onclick = this.maxDegreeChangedHandler.bind(this,i+MIN_MAX_DEGREE);
 	}
-	
-	
-	this.premptiveSplitBox = addCheckboxToAlgorithmBar("Preemtive Split / Merge (Even max degree only)");
+	this.premptiveSplitBox = addCheckboxToAlgorithmBar("");
 	this.premptiveSplitBox.onclick = this.premtiveSplitCallback.bind(this);
-	
-	
 	// Other buttons ...
-	
-}
-
-
-		
-		
-				
-BTree.prototype.reset = function()
-{
+}	
+BTree.prototype.reset = function(){
 	this.nextIndex = 3;
 	this.max_degree = 3;
 	this.max_keys = 2;
@@ -180,9 +101,7 @@ BTree.prototype.reset = function()
 	this.ignoreInputs = true;
 	// maxDegreeButtonArray[this.max_degree].selected = true;
 	this.ignoreInputs = false;
-}
-
-		
+}	
 BTree.prototype.enableUI = function(event)
 {
 	var i;
@@ -201,97 +120,64 @@ BTree.prototype.enableUI = function(event)
 		{
 			this.maxDegreeRadioButtons[i].disabled = false;
 		}
-	}
-	else
-	{
+	}else{
 		for (i = 0; i < this.maxDegreeRadioButtons.length; i++)
 		{	
 			this.maxDegreeRadioButtons[i].disabled = false;
 		}
 	}
-	
-	
-	
-	
-	
-	if (this.max_degree % 2 == 0)
-	{
+	if (this.max_degree % 2 == 0){
 		this.premptiveSplitBox.disabled = false;
 	}
-	
-	
 }
 BTree.prototype.disableUI = function(event)
 {
-	for (var i = 0; i < this.controls.length; i++)
-	{
+	for (var i = 0; i < this.controls.length; i++){
 		this.controls[i].disabled = true;
 	}
 
-	for (i = 0; i < this.maxDegreeRadioButtons.length; i++)
-	{	
+	for (i = 0; i < this.maxDegreeRadioButtons.length; i++){	
 		this.maxDegreeRadioButtons[i].disabled = true;
 	}
-	
 	this.premptiveSplitBox.disabled = true;
-	
-	
-	
 }
-
-
 //TODO:  Fix me!
-BTree.prototype.maxDegreeChangedHandler = function(newMaxDegree, event) 
-{
-	if (this.max_degree != newMaxDegree)
-	{
+BTree.prototype.maxDegreeChangedHandler = function(newMaxDegree, event) {
+	if (this.max_degree != newMaxDegree){
 		this.implementAction(this.changeDegree.bind(this), newMaxDegree);
         	animationManager.skipForward();
     	        animationManager.clearHistory();
-
-
 	}
 }
-		
-
-
-BTree.prototype.insertCallback = function(event)
-{
+BTree.prototype.insertCallback = function(event){
 	var insertedValue;
-	insertedValue = this.normalizeNumber(this.insertField.value, 4);
-	if (insertedValue != "")
-	{
+	insertedValue = this.insertField.value//this.normalizeNumber(this.insertField.value, 4);
+	if (insertedValue != ""){
 		this.insertField.value = "";
 		this.implementAction(this.insertElement.bind(this),insertedValue);
 	}
-}
-		
+}		
 BTree.prototype.deleteCallback = function(event)
 {
 	var deletedValue = this.deleteField.value;
 	if (deletedValue != "")
 	{
-		deletedValue = this.normalizeNumber(this.deleteField.value, 4);
+		deletedValue = this.deleteField.value;//this.normalizeNumber(this.deleteField.value, 4);
 		this.deleteField.value = "";
 		this.implementAction(this.deleteElement.bind(this),deletedValue);		
 	}
-}
-		
+}		
 BTree.prototype.clearCallback = function(event)
 {
 	this.implementAction(this.clearTree.bind(this), "");
-}
-		
-		
+}		
 BTree.prototype.premtiveSplitCallback = function(event)
 {
 	if (this.preemptiveSplit != this.premptiveSplitBox.checked)
 	{
 		this.implementAction(this.changePreemtiveSplit.bind(this), this.premptiveSplitBox.checked);
 	}
-}
-
-		
+}		
 BTree.prototype.changePreemtiveSplit = function(newValue)
 {
 	this.commands = new Array();
@@ -303,13 +189,10 @@ BTree.prototype.changePreemtiveSplit = function(newValue)
 	}
 	return this.commands;			
 }
-		
-
 BTree.prototype.printCallback = function(event) 
 {
 	this.implementAction(this.printTree.bind(this),"");						
 }
-
 BTree.prototype.printTree = function(unused)
 {
 	this.commands = new Array();
@@ -328,8 +211,7 @@ BTree.prototype.printTree = function(unused)
 	this.nextIndex = firstLabel;
 	this.cmd("SetText", this.messageID, "");
 	return this.commands;
-}
-		
+}		
 BTree.prototype.printTreeRec =function (tree)
 {
 	this.cmd("SetHighlight", tree.graphicID, 1);
@@ -387,7 +269,6 @@ BTree.prototype.printTreeRec =function (tree)
 	
 	
 }
-
 BTree.prototype.clearTree = function(ignored)
 {
 	this.commands = new Array();
@@ -396,7 +277,6 @@ BTree.prototype.clearTree = function(ignored)
 	this.nextIndex = 3;		
 	return this.commands;
 }
-
 BTree.prototype.deleteTree = function(tree)
 {
 	if (tree != null)
@@ -413,8 +293,6 @@ BTree.prototype.deleteTree = function(tree)
 		this.cmd("Delete", tree.graphicID);
 	}
 }
-
-
 BTree.prototype.changeDegree = function(degree)
 {
 	this.commands = new Array();
@@ -442,16 +320,13 @@ BTree.prototype.changeDegree = function(degree)
 	}
 	return this.commands;
 }
-
-
 BTree.prototype.findCallback = function(event)
 {
 	var findValue;
-	findValue = this.normalizeNumber(this.findField.value, 4);
+	findValue = this.findField.value;//this.normalizeNumber(this.findField.value, 4);
 	this.findField.value = "";
 	this.implementAction(this.findElement.bind(this),findValue);						
 }
-
 BTree.prototype.findElement = function(findValue)
 {
 	this.commands = new Array();
@@ -461,7 +336,6 @@ BTree.prototype.findElement = function(findValue)
 	
 	return this.commands;
 }
-
 BTree.prototype.findInTree = function(tree, val)
 {
 	if (tree != null)
@@ -518,17 +392,11 @@ BTree.prototype.findInTree = function(tree, val)
 		this.cmd("SetText", this.messageID, "Element " + val + " is not in the tree");
 	}
 }
-
-
-BTree.prototype.insertElement = function(insertedValue)
-{
+BTree.prototype.insertElement = function(insertedValue){
 	this.commands = new Array();
-	
-	this.cmd("SetText", this.messageID, "Inserting " + insertedValue);
+	this.cmd("SetText", this.messageID, "Insertando " + insertedValue);
 	this.cmd("Step");
-	
-	if (this.treeRoot == null)
-	{
+	if (this.treeRoot == null){
 		this.treeRoot = new BTreeNode(this.nextIndex++, this.starting_x, STARTING_Y);
 		this.cmd("CreateBTreeNode",
 				 this.treeRoot.graphicID, 
@@ -540,43 +408,31 @@ BTree.prototype.insertElement = function(insertedValue)
 				 FOREGROUND_COLOR);
 		this.treeRoot.keys[0] = insertedValue;
 		this.cmd("SetText", this.treeRoot.graphicID, insertedValue, 0);
-	}
-	else
-	{
-		if (this.preemptiveSplit)
-		{
-			if (this.treeRoot.numKeys == this.max_keys)
-			{
+	}else{
+		if (this.preemptiveSplit){
+			if (this.treeRoot.numKeys == this.max_keys){
 				this.split(this.treeRoot)
 				this.resizeTree();
 				this.cmd("Step");
-				
 			}
 			this.insertNotFull(this.treeRoot, insertedValue);				
-		}
-		else
-		{
+		}else{
 			this.insert(this.treeRoot, insertedValue);					
 		}
-		if (!this.treeRoot.isLeaf)
-		{
+		if (!this.treeRoot.isLeaf){
 			this.resizeTree();
 		}
 	}
-	
 	this.cmd("SetText", this.messageID, "");
-	
 	return this.commands;
-	
 }
-
 BTree.prototype.insertNotFull = function(tree, insertValue)
 {
 	this.cmd("SetHighlight", tree.graphicID, 1);
 	this.cmd("Step");
 	if (tree.isLeaf)
 	{
-		this.cmd("SetText", this.messageID, "Inserting " + insertValue + ".  Inserting into a leaf");
+		this.cmd("SetText", this.messageID, "Insertando " + insertValue + ".  Insertando en la Hoja");
 		tree.numKeys++;
 		this.cmd("SetNumElements", tree.graphicID, tree.numKeys);
 		var insertIndex = tree.numKeys - 1;
@@ -615,16 +471,13 @@ BTree.prototype.insertNotFull = function(tree, insertValue)
 		}
 	}
 }
-
-
-
 BTree.prototype.insert = function(tree, insertValue)
 {
 	this.cmd("SetHighlight", tree.graphicID, 1);
 	this.cmd("Step");
 	if (tree.isLeaf)
 	{
-		this.cmd("SetText", this.messageID, "Inserting " + insertValue + ".  Inserting into a leaf");
+		this.cmd("SetText", this.messageID, "Insertando " + insertValue + ".  insertando en el hoja");
 		tree.numKeys++;
 		this.cmd("SetNumElements", tree.graphicID, tree.numKeys);
 		var insertIndex = tree.numKeys - 1;
@@ -654,7 +507,6 @@ BTree.prototype.insert = function(tree, insertValue)
 		this.insert(tree.children[findIndex], insertValue);				
 	}
 }
-
 BTree.prototype.insertRepair = function(tree) 
 {
 	if (tree.numKeys <= this.max_keys)
@@ -672,10 +524,9 @@ BTree.prototype.insertRepair = function(tree)
 		this.insertRepair(newNode);
 	}			
 }
-
 BTree.prototype.split = function(tree)
 {
-	this.cmd("SetText", this.messageID, "Node now contains too many keys.  Splittig ...");
+	this.cmd("SetText", this.messageID, "El nodo ahora contiene demaciadas claves. ");
 	this.cmd("SetHighlight", tree.graphicID, 1);
 	this.cmd("Step");
 	this.cmd("SetHighlight", tree.graphicID, 0);
@@ -820,7 +671,6 @@ BTree.prototype.split = function(tree)
 	
 	
 }
-
 BTree.prototype.deleteElement = function(deletedValue)
 {
 	this.commands = new Array();
@@ -848,7 +698,6 @@ BTree.prototype.deleteElement = function(deletedValue)
 	}
 	return this.commands;						
 }
-
 BTree.prototype.doDeleteNotEmpty = function(tree, val)
 {
 	if (tree != null)
@@ -1083,9 +932,7 @@ BTree.prototype.doDeleteNotEmpty = function(tree, val)
 		}
 		
 	}
-}		
-
-
+}	
 BTree.prototype.doDelete = function(tree, val)
 {
 	if (tree != null)
@@ -1173,9 +1020,6 @@ BTree.prototype.doDelete = function(tree, val)
 		
 	}
 }
-
-
-
 BTree.prototype.mergeRight = function(tree) 
 {
 	this.cmd("SetText", this.messageID, "Merging node");
@@ -1257,8 +1101,6 @@ BTree.prototype.mergeRight = function(tree)
 	this.cmd("SetText", this.messageID, "");
 	return tree;
 }
-
-
 BTree.prototype.stealFromRight = function(tree, parentIndex) 
 {
 	// Steal from right sibling
@@ -1346,8 +1188,6 @@ BTree.prototype.stealFromRight = function(tree, parentIndex)
 	return tree;
 	
 }
-
-
 BTree.prototype.stealFromLeft = function(tree, parentIndex) 
 {
 	var parentNode = tree.parent;
@@ -1424,8 +1264,6 @@ BTree.prototype.stealFromLeft = function(tree, parentIndex)
 	this.cmd("SetText", this.messageID, "");
 	return tree;
 }
-
-
 BTree.prototype.repairAfterDelete = function(tree)
 {
 	if (tree.numKeys < this.min_keys)
@@ -1474,19 +1312,16 @@ BTree.prototype.repairAfterDelete = function(tree)
 		}
 	}
 }
-
 BTree.prototype.getLabelX = function(tree, index) 
 {
 	return tree.x - WIDTH_PER_ELEM * tree.numKeys / 2 + WIDTH_PER_ELEM / 2 + index * WIDTH_PER_ELEM;
 }
-
 BTree.prototype.resizeTree = function()
 {
 	this.resizeWidths(this.treeRoot);
 	this.setNewPositions(this.treeRoot, this.starting_x, STARTING_Y);
 	this.animateNewPositions(this.treeRoot);
 }
-
 BTree.prototype.setNewPositions = function(tree, xPosition, yPosition)
 {
 	if (tree != null)
@@ -1505,7 +1340,6 @@ BTree.prototype.setNewPositions = function(tree, xPosition, yPosition)
 		}				
 	}			
 }
-
 BTree.prototype.animateNewPositions = function(tree)
 {
 	if (tree == null)
@@ -1519,7 +1353,6 @@ BTree.prototype.animateNewPositions = function(tree)
 	}
 	this.cmd("Move", tree.graphicID, tree.x, tree.y);
 }
-
 BTree.prototype.resizeWidths = function(tree) 
 {
 	if (tree == null)
@@ -1548,10 +1381,6 @@ BTree.prototype.resizeWidths = function(tree)
 		return treeWidth;
 	}
 }
-	
-
-
-
 function BTreeNode(id, initialX, initialY)
 {
 	this.widths = [];
@@ -1568,15 +1397,8 @@ function BTreeNode(id, initialX, initialY)
 	this.rightWidth = 0;
 	
 }
-
-
-
-
-
 var currentAlg;
-
-function init()
-{
+function init(){
 	var animManag = initCanvas();
 	currentAlg = new BTree(animManag, canvas.width, canvas.height);
 }
