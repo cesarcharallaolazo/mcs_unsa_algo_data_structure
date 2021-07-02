@@ -51,13 +51,11 @@ AnimatedObject.prototype.getHighlight = function()
 {
 	return this.highlighted;
 }
-AnimatedObject.prototype.getWidth = function()
-{
+AnimatedObject.prototype.getWidth = function(){
 	// TODO:  Do we want to throw here?  Should always override this ...
 	return 0;
 }
-AnimatedObject.prototype.getHeight = function()
-{
+AnimatedObject.prototype.getHeight = function(){
 	// TODO:  Do we want to throw here?  Should always override this ...
 	return 0;
 }
