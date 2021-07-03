@@ -14,6 +14,14 @@ class Rectangle {
     }
     // verifica si este objeto contiene un objeto Punto
     contains ( point ){
+        for (var i = 0; i< this.x; i++) {
+            for (var j = 0; j < this.y; j++) {
+                if(point.x==i && point.y==j)
+                {
+                    return 1;
+                }
+            }
+        }
     }
     // verifica si este objeto se intersecta con otro objeto Rectangle
     intersects ( range ){
