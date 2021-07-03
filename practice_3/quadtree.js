@@ -19,7 +19,6 @@ class Rectangle {
     intersects ( range ){
     }
 }
-
 class QuadTree {
      constructor ( boundary , n){
      this.boundary = boundary; // Rectangle
@@ -27,20 +26,18 @@ class QuadTree {
      this.points = []; // vector , almacena los puntos a almacenar
      this.divided = false;
      }
-    
      // divide el quadtree en 4 quadtrees
      subdivide () {
         // Algoritmo
         // 1: Crear 4 hijos: qt_northeast , qt_northwest , qt_southeast , qt_southwest
         // 2: Asignar los QuadTree creados a cada hijo
-        // this.northeast = qt_northeast;
-        // this.northwest = qt_northwest;
-        // this.southeast = qt_southeast;
-        // this.southwest = qt_southwest;
+        this.northeast = qt_northeast;
+        this.northwest = qt_northwest;
+        this.southeast = qt_southeast;
+        this.southwest = qt_southwest;
 
         // 3.- Hacer: this.divided <- true
     }
-
     insert ( point ){
         // Algoritmo
         // 1: Si el punto no esta en los limites ( boundary ) del quadtree Return
