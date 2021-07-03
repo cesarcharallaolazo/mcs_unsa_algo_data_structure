@@ -14,7 +14,7 @@ function setup () {
     // each leave just could have 4 elements
     qt = new QuadTree ( boundary , 4) ;
     console.log (qt);
-    for (let i=0; i < 10; i ++) {
+    for (let i=0; i < 100; i ++) {
         let p = new Point ( Math.random () * 400 , Math.random () * 400) ;
         qt.insert (p);
     }

@@ -23,139 +23,6 @@ class Rectangle {
             range.y - range.h > this.y + this.h || range.y + range.h < this.y - this.h);
     }
 }
-
-//Edwin
-/*
-contains(point) {
-    return (point.x >= this.x - this.w && point.x < this.x + this.w &&
-      point.y >= this.y - this.h && point.y < this.y + this.h);
-  }
-  intersects(range) {
-    return (range.x - range.w > this.x + this.w || range.x + range.w < this.x - this.w ||
-      range.y - range.h > this.y + this.h || range.y + range.h < this.y - this.h);
-  }
-*/ 
-//mirrella
-/*
-contains(point) {
-    var temp = (
-        (point.x >= this.x - this.w) && (point.x < this.x + this.w) && // ancho
-        (point.y >= this.y - this.h) && (point.y < this.y + this.h) // alto
-      )
-    return temp;
-  }
-  // verifica si este objeto se intersecta con otro objeto Rectangle
-  intersects(range) { // es de tipo rectangulo 
-    var temp = (
-      (range.x - range.w > this.x + this.w) || (range.x + range.w < this.x - this.w) ||
-      (range.y - range.h > this.y + this.h )||(range.y + range.h < this.y - this.h)
-    )
-    return temp 
-  }
-*/
-//Mirella
-/*
-subdivide() {
-    let northeast_rect = new Rectangle(
-        (this.boundary.x + this.boundary.w) / 2, 
-        (this.boundary.y + this.boundary.h) / 2,
-        this.boundary.w / 2, 
-        this.boundary.h / 2);
-    let northwest_rect = new Rectangle(
-        (this.boundary.x + this.boundary.w) / 2, 
-        (this.boundary.y + this.boundary.h) / 2,
-        this.boundary.w / 2, 
-        this.boundary.h / 2);
-    let southeast_rect = new Rectangle(
-        (this.boundary.x + this.boundary.w) / 2, 
-        (this.boundary.y + this.boundary.h) / 2,
-        this.boundary.w / 2, 
-        this.boundary.h / 2);
-    let southwest_rect = new Rectangle(
-        (this.boundary.x + this.boundary.w) / 2, 
-        (this.boundary.y + this.boundary.h) / 2,
-        this.boundary.w / 2, 
-        this.boundary.h / 2);
-    this.northeast = new QuadTree(northeast_rect, this.capacity);
-    this.northwest = new QuadTree(northwest_rect, this.capacity);
-    this.southeast = new QuadTree(southeast_rect, this.capacity);
-    this.southwest = new QuadTree(southwest_rect, this.capacity);
-    this.divided = true
-  }
-*/ 
-//Edwin
-/*
-subdivide() {
-    let _x = this.boundary.x;
-    let _y = this.boundary.y;
-    let _w = this.boundary.w * 0.5;
-    let _h = this.boundary.h * 0.5;
-    let px0 = _x + _w;
-    let px1 = _x - _w;
-    let py0 = _y + _h;
-    let py1 = _y - _h;
-    let ne = new Rectangle(px0, py1, _w, _h);
-    this.northeast = new QuadTree(ne, this.capacity);
-    let nw = new Rectangle(px1, py1, _w, _h);
-    this.northwest = new QuadTree(nw, this.capacity);
-    let se = new Rectangle(px0, py0, _w, _h);
-    this.southeast = new QuadTree(se, this.capacity);
-    let sw = new Rectangle(px1, py0, _w, _h);
-    this.southwest = new QuadTree(sw, this.capacity);
-    this.divided = true;
-  }
-*/
-
-//Mirella
-/**
- insert(point) {
-    if (!this.boundary.contains(point)) {
-      return false;
-    }
-    if ( this.points.length < this.capacity ) {
-      this.points.push(point)
-      return true
-    } else {
-      if (this.subdivide === false) {
-        this.subdivide()
-      }
-      return (
-          this.northeast.insert(point) ||
-          this.northwest.insert(point) ||
-          this.southeast.insert(point) ||
-          this.southwest.insert(point) 
-        )
-    }
-  }
-
- */
-
-//Edwin
-/*
-insert(point) {
-    if (!this.boundary.contains(point)) {
-      return false;
-    }
-    if (this.points.length < this.capacity) {
-      this.points.push(point);
-      return true;
-    } else {
-      if (!this.divided) {
-        this.subdivide();
-      }
-      if (this.northeast.insert(point)) {
-        return true;
-      } else if (this.northwest.insert(point)) {
-        return true;
-      } else if (this.southeast.insert(point)) {
-        return true;
-      } else if (this.southwest.insert(point)) {
-        return true;
-      }
-    }
-  }
-*/
-
 class QuadTree {
      constructor ( boundary , n){
      this.boundary = boundary; // Rectangle
@@ -172,7 +39,7 @@ class QuadTree {
         let _y = this.boundary.y;
         let _w = this.boundary.w * 0.5;
         let _h = this.boundary.h * 0.5;
-        let px0 = _x + _w;
+        let px0 = _x + _w;  
         let px1 = _x - _w;
         let py0 = _y + _h;
         let py1 = _y - _h;
