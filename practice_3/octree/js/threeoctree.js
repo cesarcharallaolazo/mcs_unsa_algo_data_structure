@@ -8,78 +8,45 @@
  *
  */
  ( function ( THREE ) { "use strict";
-	
 	/*===================================================
-
 	utility
-
 	=====================================================*/
-	
 	function isNumber ( n ) {
 		return !isNaN( n ) && isFinite( n );
 	}
-	
 	function isArray ( target ) {
 		return Object.prototype.toString.call( target ) === '[object Array]';
 	}
-	
 	function toArray ( target ) {
 		return target ? ( isArray ( target ) !== true ? [ target ] : target ) : [];
 	}
-	
-	function indexOfValue( array, value ) {
-		
+	function indexOfValue( array, value ) {	
 		for ( var i = 0, il = array.length; i < il; i++ ) {
-			
 			if ( array[ i ] === value ) {
-				
 				return i;
-				
 			}
-			
 		}
-		
 		return -1;
-		
 	}
-	
-	function indexOfPropertyWithValue( array, property, value ) {
-		
+	function indexOfPropertyWithValue( array, property, value ) {	
 		for ( var i = 0, il = array.length; i < il; i++ ) {
-			
 			if ( array[ i ][ property ] === value ) {
-				
 				return i;
-				
 			}
-			
 		}
-		
 		return -1;
-		
 	}
-
 	/*===================================================
-
 	octree
-
 	=====================================================*/
-
 	THREE.Octree = function ( parameters ) {
-		
 		// handle parameters
-		
 		parameters = parameters || {};
-		
 		parameters.tree = this;
-		
 		// static properties ( modification is not recommended )
-		
 		this.nodeCount = 0;
-		
 		this.INDEX_INSIDE_CROSS = -1;
 		this.INDEX_OUTSIDE_OFFSET = 2;
-		
 		this.INDEX_OUTSIDE_POS_X = isNumber( parameters.INDEX_OUTSIDE_POS_X ) ? parameters.INDEX_OUTSIDE_POS_X : 0;
 		this.INDEX_OUTSIDE_NEG_X = isNumber( parameters.INDEX_OUTSIDE_NEG_X ) ? parameters.INDEX_OUTSIDE_NEG_X : 1;
 		this.INDEX_OUTSIDE_POS_Y = isNumber( parameters.INDEX_OUTSIDE_POS_Y ) ? parameters.INDEX_OUTSIDE_POS_Y : 2;
@@ -106,76 +73,50 @@
 		this.utilVec32Search = new THREE.Vector3();
 		
 		// pass scene to see octree structure
-		
 		this.scene = parameters.scene;
-		
 		if ( this.scene ) {
-			
-			this.visualGeometry = new THREE.CubeGeometry( 1, 1, 1 );
+			this.visualGeometry = new THREE.CubeGeometry(1,1,1);
 			this.visualMaterial = new THREE.MeshBasicMaterial( { color: 0xFF0066, wireframe: true, wireframeLinewidth: 1 } );
-			
 		}
-		
 		// properties
-		
 		this.objects = [];
 		this.objectsMap = {};
 		this.objectsData = [];
 		this.objectsDeferred = [];
-		
 		this.depthMax = isNumber( parameters.depthMax ) ? parameters.depthMax : Infinity;
 		this.objectsThreshold = isNumber( parameters.objectsThreshold ) ? parameters.objectsThreshold : 8;
 		this.overlapPct = isNumber( parameters.overlapPct ) ? parameters.overlapPct : 0.15;
 		this.undeferred = parameters.undeferred || false;
-		
 		this.root = parameters.root instanceof THREE.OctreeNode ? parameters.root : new THREE.OctreeNode( parameters );
-		
-	};
 
+		console.log("undeferred: "+ this.undeferred);
+		console.log("depthMax: "+ this.depthMax);
+		console.log("objectsThreshold: "+this.objectsThreshold);
+		console.log("overlapPct: "+ this.overlapPct);
+
+	};
 	THREE.Octree.prototype = {
-		
 		update: function () {
-			
 			// add any deferred objects that were waiting for render cycle
-			
 			if ( this.objectsDeferred.length > 0 ) {
-				
 				for ( var i = 0, il = this.objectsDeferred.length; i < il; i++ ) {
-					
 					var deferred = this.objectsDeferred[ i ];
-					
 					this.addDeferred( deferred.object, deferred.options );
-					
 				}
-				
 				this.objectsDeferred.length = 0;
-				
 			}
-			
 		},
-		
 		add: function ( object, options ) {
-			
 			// add immediately
-			
 			if ( this.undeferred ) {
-				
 				this.updateObject( object );
-				
 				this.addDeferred( object, options );
-				
 			} else {
-				
 				// defer add until update called
-				
 				this.objectsDeferred.push( { object: object, options: options } );
-				
 			}
-			
 		},
-		
 		addDeferred: function ( object, options ) {
-			
 			var i, l,
 				geometry,
 				faces,
@@ -183,59 +124,34 @@
 				vertices,
 				useVertices,
 				objectData;
-			
 			// ensure object is not object data
-			
 			if ( object instanceof THREE.OctreeObjectData ) {
-				
 				object = object.object;
-				
 			}
-			
 			// check uuid to avoid duplicates
-			
 			if ( !object.uuid ) {
-				
 				object.uuid = THREE.Math.generateUUID();
-				
 			}
-			
-			if ( !this.objectsMap[ object.uuid ] ) {
-				
+			if ( !this.objectsMap[ object.uuid ] ) {	
 				// store
-				
 				this.objects.push( object );
 				this.objectsMap[ object.uuid ] = object;
-				
 				// check options
-				
 				if ( options ) {
-					
 					useFaces = options.useFaces;
 					useVertices = options.useVertices;
-					
 				}
-				
-				if ( useVertices === true ) {
-					
+				if ( useVertices === true ) {	
 					geometry = object.geometry;
 					vertices = geometry.vertices;
-					
 					for ( i = 0, l = vertices.length; i < l; i++ ) {
-						
 						this.addObjectData( object, vertices[ i ] );
-						
 					}
-					
 				} else if ( useFaces === true ) {
-					
 					geometry = object.geometry;
 					faces = geometry.faces;
-					
 					for ( i = 0, l = faces.length; i < l; i++ ) {
-						
 						this.addObjectData( object, faces[ i ] );
-						
 					}
 					
 				} else {
@@ -247,7 +163,6 @@
 			}
 			
 		},
-		
 		addObjectData: function ( object, part ) {
 			
 			var objectData = new THREE.OctreeObjectData( object, part );
@@ -261,74 +176,46 @@
 			this.root.addObject( objectData );
 			
 		},
-		
 		remove: function ( object ) {
-			
 			var i, l,
 				objectData = object,
 				index,
 				objectsDataRemoved;
-			
 			// ensure object is not object data for index search
-			
 			if ( object instanceof THREE.OctreeObjectData ) {
-				
 				object = object.object;
-				
 			}
-			
 			// check uuid
-			
-			if ( this.objectsMap[ object.uuid ] ) {
-				
-				this.objectsMap[ object.uuid ] = undefined;
-				
-				// check and remove from objects, nodes, and data lists
-				
-				index = indexOfValue( this.objects, object );
-				
-				if ( index !== -1 ) {
-					
-					this.objects.splice( index, 1 );
-					
-					// remove from nodes
-					
-					objectsDataRemoved = this.root.removeObject( objectData );
-					
-					// remove from objects data list
-					
-					for ( i = 0, l = objectsDataRemoved.length; i < l; i++ ) {
-						
-						objectData = objectsDataRemoved[ i ];
-						
-						index = indexOfValue( this.objectsData, objectData );
-						
-						if ( index !== -1 ) {
-							
-							this.objectsData.splice( index, 1 );
-							
+			try{
+				if ( this.objectsMap[ object.uuid ] ) {
+					this.objectsMap[ object.uuid ] = undefined;
+					// check and remove from objects, nodes, and data lists
+					index = indexOfValue( this.objects, object );
+					if ( index !== -1 ) {
+						this.objects.splice( index, 1 );
+						// remove from nodes
+						objectsDataRemoved = this.root.removeObject( objectData );
+						// remove from objects data list
+						for ( i = 0, l = objectsDataRemoved.length; i < l; i++ ) {
+							objectData = objectsDataRemoved[ i ];
+							index = indexOfValue( this.objectsData, objectData );
+							if ( index !== -1 ) {
+								this.objectsData.splice( index, 1 );
+							}
 						}
-						
+					}	
+				} else if ( this.objectsDeferred.length > 0 ) {
+					// check and remove from deferred
+					index = indexOfPropertyWithValue( this.objectsDeferred, 'object', object );
+					if ( index !== -1 ) {
+						this.objectsDeferred.splice( index, 1 );
 					}
-					
 				}
-				
-			} else if ( this.objectsDeferred.length > 0 ) {
-				
-				// check and remove from deferred
-				
-				index = indexOfPropertyWithValue( this.objectsDeferred, 'object', object );
-				
-				if ( index !== -1 ) {
-					
-					this.objectsDeferred.splice( index, 1 );
-					
-				}
-				
+			}catch(error){
+				return;
+				console.log("error: "+ error);
 			}
-			
 		},
-		
 		extend: function ( octree ) {
 			
 			var i, l,
@@ -352,7 +239,6 @@
 			}
 			
 		},
-		
 		rebuild: function () {
 			
 			var i, l,
@@ -417,7 +303,6 @@
 			}
 			
 		},
-		
 		updateObject: function ( object ) {
 			
 			var i, l,
@@ -457,7 +342,6 @@
 			}
 			
 		},
-		
 		search: function ( position, radius, organizeByObject, direction ) {
 			
 			var i, l,
@@ -561,7 +445,6 @@
 			return results;
 			
 		},
-		
 		setRoot: function ( root ) { 
 			
 			if ( root instanceof THREE.OctreeNode ) {
@@ -577,39 +460,30 @@
 			}
 			
 		},
-		
 		getDepthEnd: function () {
 			
 			return this.root.getDepthEnd();
 			
 		},
-		
 		getNodeCountEnd: function () {
 			
 			return this.root.getNodeCountEnd();
 			
 		},
-		
 		getObjectCountEnd: function () {
 			
 			return this.root.getObjectCountEnd();
 			
 		},
-		
 		toConsole: function () {
 			
 			this.root.toConsole();
 			
 		}
-		
 	};
-
 	/*===================================================
-
 	object data
-
 	=====================================================*/
-
 	THREE.OctreeObjectData = function ( object, part ) {
 		
 		// properties
@@ -650,7 +524,6 @@
 		this.positionLast = this.position.clone();
 		
 	};
-
 	THREE.OctreeObjectData.prototype = {
 		
 		update: function () {
@@ -729,17 +602,11 @@
 		}
 		
 	};
-
 	/*===================================================
-
 	node
-
 	=====================================================*/
-
 	THREE.OctreeNode = function ( parameters ) {
-		
 		// utility
-		
 		this.utilVec31Branch = new THREE.Vector3();
 		this.utilVec31Expand = new THREE.Vector3();
 		this.utilVec31Ray = new THREE.Vector3();
@@ -798,7 +665,6 @@
 		}
 		
 	};
-
 	THREE.OctreeNode.prototype = {
 		
 		setParent: function ( parent ) {
@@ -2069,13 +1935,9 @@
 		}
 		
 	};
-
 	/*===================================================
-
 	raycaster additional functionality
-
 	=====================================================*/
-	
 	THREE.Raycaster.prototype.intersectOctreeObject = function ( object, recursive ) {
 		
 		var intersects,
