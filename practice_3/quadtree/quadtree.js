@@ -5,38 +5,27 @@ class Point {
     this.userData = userData;
     }
 }   
-
-
 class Rectangle {
-    constructor (x, y, w, h) {
+  constructor (x, y, w, h) {
     this.x = x; // center
     this.y = y;
     this.w = w; // half width
     this.h = h; // half height
-        this.x = x; // center
-        this.y = y; // center
-        this.w = w; // half width
-        this.h = h; // half height
-    }
-    // verifica si este objeto contiene un objeto Punto
-    contains ( point ){
-       
+  }
+  // verifica si este objeto contiene un objeto Punto
+  contains ( point ){
     return ((point.x >= this.x - this.w) && (point.x < this.x + this.w) && 
       (point.y >= this.y - this.h) && (point.y < this.y + this.h));
-    }
-    // verifica si este objeto se intersecta con otro objeto Rectangle
-    intersects ( range ){
-
-
-        var temp = (
+  }
+  // verifica si este objeto se intersecta con otro objeto Rectangle
+  intersects ( range ){
+    var temp = (
       (range.x - range.w > this.x + this.w) || (range.x + range.w < this.x - this.w) ||
-      (range.y - range.h > this.y + this.h )||(range.y + range.h < this.y - this.h)
+      (range.y - range.h > this.y + this.h) || (range.y + range.h < this.y - this.h)
     )
     return temp ;
-    }
+  }
 }
-
-
 class QuadTree {
      constructor ( boundary , n){
      this.boundary = boundary; // Rectangle
@@ -45,7 +34,7 @@ class QuadTree {
      this.divided = false;
      }
      // divide el quadtree en 4 quadtrees
-    subdivide () { // crea 4 nuevos nodos
+    subdivide(){ // crea 4 nuevos nodos
         // Algoritmo
         // 1: Crear 4 hijos: qt_northeast , qt_northwest , qt_southeast , qt_southwest
         // 2: Asignar los QuadTree creados a cada hijo
@@ -68,7 +57,7 @@ class QuadTree {
         this.divided = true;
         // 3.- Hacer: this.divided <- true
     }
-    insert ( point ){
+    insert(point){
         // Algoritmo
         // 1: Si el punto no esta en los limites ( boundary ) del quadtree Return
         // 2: Si ( this.points.length ) < ( this.capacity ),
@@ -101,21 +90,36 @@ class QuadTree {
             }
           }
     }
-    show () {
-            stroke (255) ;
-            strokeWeight (1) ;
-            noFill () ;
-            rectMode ( CENTER );
-            rect ( this.boundary.x , this.boundary.y , this.boundary.w *2 , this.boundary.h*2) ;
-            if( this.divided ) {
-            this.northeast.show () ;
-            this.northwest.show () ;
-            this.southeast.show () ;
-            this.southwest.show () ;
-        }
-        for (let p of this.points ){
+    show (){
+      stroke (255) ;
+      strokeWeight (1) ;
+      noFill () ;
+      rectMode ( CENTER );
+      rect ( this.boundary.x , this.boundary.y , this.boundary.w *2 , this.boundary.h*2) ;
+      if( this.divided ) {
+        this.northeast.show () ;
+        this.northwest.show () ;
+        this.southeast.show () ;
+        this.southwest.show () ;
+      }
+      for (let p of this.points ){
         strokeWeight (4) ;
         point (p.x , p.y );
+      }
+    }
+    query(range,points){
+      //points=this.points;
+      //console.log(range);
+      //console.log(points);
+      let pointsLoc=[];
+      let i=0;
+      for(let p of points){
+        if (p.x > range.x -50 && p.x < range.x-50 + range.w  * 2&& p.y > range.y-50 && p.y < range.y-50  + range.h* 2) {
+          console.log(p);
+          pointsLoc[i]=p;
+          i++;
         }
+      }
+      return pointsLoc;
     }
 }
