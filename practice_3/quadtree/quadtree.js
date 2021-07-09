@@ -12,12 +12,12 @@ class Rectangle {
     this.w = w; // half width
     this.h = h; // half height
   }
-  // verifica si este objeto contiene un objeto Punto
+  // verifica si un rectangulo  contiene un objeto Punto
   contains ( point ){
     return ((point.x >= this.x - this.w) && (point.x < this.x + this.w) && 
       (point.y >= this.y - this.h) && (point.y < this.y + this.h));
   }
-  // verifica si este objeto se intersecta con otro objeto Rectangle
+  // verifica si un objeto rectangulo se une con otro objeto rectangulo
   intersects ( range ){
     var temp = (
       (range.x - range.w > this.x + this.w) || (range.x + range.w < this.x - this.w) ||
