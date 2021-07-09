@@ -18,7 +18,6 @@
 		<script type="text/javascript" src="js/threeoctree.js"></script>
 		<script>
 			initHtml();
-			//init();
 			var camera, 
 				scene, 
 				renderer,
@@ -49,16 +48,14 @@
 				info.style.textAlign = 'center';
 				info.style.padding = '10px';
 				info.style.background = '#FFFFFF';
-				info.innerHTML = '<label for="fname">Maximo de puntos:</label> <input type="text" id="fpoints" name="fpoints"> <button onclick="init();">Iniciar</button> <a href="http://threejs.org" target="_blank">three.js</a> webgl - octree (sparse & dynamic) - by <a href="https://github.com/cesarcharallaolazo/mcs_unsa_algo_data_structure/tree/master/practice_3" target="_blank">Grupo 7</a>';
+				info.innerHTML = '<label for="fname">Maximo de puntos:</label> <input type="text" id="fpoints" name="fpoints"> <button onclick="init();">Iniciar</button> <a href="http://threejs.org" target="_blank">three.js</a> - por <a href="https://github.com/cesarcharallaolazo/mcs_unsa_algo_data_structure/tree/master/practice_3/octree" target="_blank">Grupo 7</a>';
 				document.body.appendChild( info );
 			}
 			function init() {
 				var puntosMaximos= document.getElementById("fpoints").value;
-				meshCountMax = 	parseInt(puntosMaximos);// Cantidad maxima de puntos por iteracion
-				
+				meshCountMax = 	parseInt(puntosMaximos);// Cantidad maxima de puntos por iteracion	
 				// standard three scene, camera, renderer
 				scene = new THREE.Scene();
-				//camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, radius * 100 );
 				//20 es el tamaño de los cuadrantes a menos numero mas grande se ve
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, radius * 100 );
 				scene.add(camera);
@@ -91,19 +88,34 @@
 					new THREE.MeshBasicMaterial( { color: 0x98B4ED, transparent: true, opacity: 0.4 } )
 				);
 				scene.add(searchMesh);
-				animate();
+				//animate();
+				asyncCall();
 			}
 			function animate() {
 				// note: three.js includes requestAnimationFrame shim
-				requestAnimationFrame( animate );
-				// modify octree structure by adding/removing objects
-				modifyOctree();
+				//requestAnimationFrame( animate );
+				// modify octree structure by adding/removing objects				
+				//modifyOctree();
 				// search octree at random location
 				//searchOctree();
 				// render results
-				render(); // movimiento de la camara
+				//render(); // movimiento de la camara
 				// update octree to add deferred objects
-				octree.update();
+				//octree.update();
+				return new Promise(resolve => {
+					setTimeout(() => {
+						requestAnimationFrame( animate );
+						// modify octree structure by adding/removing objects				
+						modifyOctree();
+						// search octree at random location
+						//searchOctree();
+						// render results
+						render(); // movimiento de la camara
+						// update octree to add deferred objects
+						octree.update();
+					}, 300);
+				});
+
 			}		
 			function modifyOctree() {
 				// si estamos agregando objetos al octree
@@ -120,8 +132,8 @@
 						Math.random() * radiusMax - radiusMaxHalf
 					);
 					// agregamos un nuevo objeto al octree y a la escena
-					octree.add( mesh );
-					scene.add( mesh );
+					octree.add(mesh);
+					scene.add(mesh);
 					// store object for later
 					meshes.push( mesh );
 					// si llegamos al maximo dejamos de insertar.
@@ -131,7 +143,7 @@
 					}
 				}
 				// else remove objects from octree
-				else {
+				/*else {
 					// get object
 					mesh = meshes.shift();
 					// remove from scene and octree
@@ -139,9 +151,9 @@
 					octree.remove( mesh );
 					// si no hay mas objetos nuevamente ponemos en true el agregando (adding)
 					if ( meshes.length === 0 ) {
-						//adding = true;
+						adding = true;
 					}
-				}
+				}*/
 				/*
 				// octree details to console
 				console.log( ' OCTREE: ', octree );
@@ -155,7 +167,7 @@
 			function searchOctree() {
 				var i, il;
 				// revert previous search objects to base color
-				//console.log(meshesSearch.length);
+				console.log(meshesSearch.length);
 				for ( i = 0, il = meshesSearch.length; i < il; i++ ) {
 					//console.log(meshesSearch[i]);
 					meshesSearch[i].object.material.color.setRGB( baseR, baseG, baseB );
@@ -194,6 +206,20 @@
 				camera.lookAt( scene.position );
 				renderer.render( scene, camera );
 			}
+			function resolveAfter2Seconds() {
+				return new Promise(resolve => {
+					setTimeout(() => {
+						resolve('resolved');
+					}, 2000);
+				});
+			}
+			async function asyncCall() {
+				console.log('calling');
+				const result = await animate();
+				console.log(result);
+				// expected output: "resolved"
+			}
+			
 		</script>
 	</body>
 </html>
