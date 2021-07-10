@@ -421,10 +421,21 @@ const tree = new AVLTree();
 tree.insert(100);
 tree.insert(70);
 tree.insert(32);
+tree.insert(16);
+tree.insert(45);
+
 //console.log(tree.max);
 //console.log(tree.min);
 tree.print();
 //console.log (tree.(10));
+
+console.log(tree.search(16));
+//tree.print()
+tree.remove(45);
+tree.print()
+console.log(tree.max);
+console.log(tree.min);
+//console.log(tree.min);
 
 //Left Rotation
 // tree.insert(70);

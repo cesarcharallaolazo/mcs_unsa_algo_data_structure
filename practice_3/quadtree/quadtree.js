@@ -18,6 +18,7 @@ class Rectangle {
       (point.y >= this.y - this.h) && (point.y < this.y + this.h));
   }
   // verifica si un objeto rectangulo se une con otro objeto rectangulo
+  // Intersección en un rango.
   intersects ( range ){
     var temp = (
       (range.x - range.w > this.x + this.w) || (range.x + range.w < this.x - this.w) ||
@@ -33,7 +34,7 @@ class QuadTree {
      this.points = []; // vector , almacena los puntos a almacenar
      this.divided = false;
      }
-     // divide el quadtree en 4 quadtrees
+     // divide el quadtree en 4 cuadrantes quadtrees
     subdivide(){ // crea 4 nuevos nodos
         // Algoritmo
         // 1: Crear 4 hijos: qt_northeast , qt_northwest , qt_southeast , qt_southwest
