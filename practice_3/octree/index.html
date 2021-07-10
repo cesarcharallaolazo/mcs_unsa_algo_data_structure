@@ -29,10 +29,10 @@
 				meshesSearch = [],
 				//meshCountMax = 1000,
 				//meshCountMax = 	puntosMaximos, // Cantidad maxima de puntos por iteracion
-				//radius = 500,
+				//radius = 500, variable principal que permitirá generar los objetos Octree.
 				radius = 400, // radio total en los 3 ejes para la visualizacion
 				radiusMax = radius * 10,
-				radiusMaxHalf = radiusMax * 0.5,
+				radiusMaxHalf = radiusMax * 0.5,// La mitad del radio máximo
 				//radiusSearch = 400,
 				radiusSearch = 400, // radio de busqueda
 				searchMesh,
@@ -84,7 +84,8 @@
 				} );
 				// create object to show search radius and add to scene
 				searchMesh = new THREE.Mesh(
-					new THREE.SphereGeometry(radiusSearch),
+					new THREE.SphereGeometry(radiusSearch), 
+					// Crea un radio de busqueda
 					new THREE.MeshBasicMaterial( { color: 0x98B4ED, transparent: true, opacity: 0.4 } )
 				);
 				scene.add(searchMesh);
@@ -131,7 +132,7 @@
 						Math.random() * radiusMax - radiusMaxHalf,
 						Math.random() * radiusMax - radiusMaxHalf
 					);
-					// agregamos un nuevo objeto al octree y a la escena
+					// se agrega aleatoriamente un objeto al octree y a la escena
 					octree.add(mesh);
 					scene.add(mesh);
 					// store object for later
@@ -205,6 +206,7 @@
 				camera.position.z = Math.sin( timer ) * 10000;
 				camera.lookAt( scene.position );
 				renderer.render( scene, camera );
+				// renderiza en base a la escena y la camara
 			}
 			async function asyncCall() {
 				console.log('calling');

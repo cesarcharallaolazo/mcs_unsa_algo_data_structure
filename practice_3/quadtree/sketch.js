@@ -9,7 +9,7 @@ function setup () {
     //console.log("Intersectan? : "+ rect1.intersects(rect2))
     //console.log("Contiene el punto: "+rect1.contains(point));
     //let vector=[]
-    // centre point and half of width and height
+    // punto central y la mitad de alto y ancho 
     let boundary = new Rectangle (200 ,200 ,200 ,200) ;
     // each leave just could have 4 elements
     qt = new QuadTree ( boundary , 4) ;
