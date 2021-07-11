@@ -35,17 +35,11 @@ function generate_dot(node){
 function build_kdtree(points, depth = 0){
     var n = points.length;
     var axis = depth % k;
-    if (n <= 0){
-        return null;
-    }
-    if (n == 1){
-        return new Node(points[0], axis)
-    }
+    if (n <= 0){return null;}
+    if (n == 1){return new Node(points[0], axis)}
     var median = Math.floor(points.length / 2);
     // sort by the axis
-    points.sort(function(a, b){
-        return a[axis] - b[axis];
-    });
+    points.sort(function(a, b){return a[axis] - b[axis];});
     //console.log(points);
     var left = points.slice(0, median);
     var right = points.slice(median + 1);
@@ -95,5 +89,16 @@ function naive_closest_point(node, point, depth = 0, best = null){
         next_branch = node.right
     return  naive_closest_point(next_branch, point, depth +1, next_best);
 }
+function closet_point(node, point, depth=0){
 
+}
+function range_query_circle(node, center, radio, queue,depth=0){
 
+}
+function range_query_rec(node, center, radio, queue,depth=0){
+    
+}
+//Paul aqui tu implementacion del KNN
+function KNN(){
+    
+}
