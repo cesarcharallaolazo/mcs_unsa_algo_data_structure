@@ -1,6 +1,6 @@
 //https://github.com/browserify/browserify
-//browserify practice_4/descriptor/mimir-master/example.js  > practice_4/descriptor/mimir-master/example_bundle.js
-//browserify -t brfs practice_4/descriptor/mimir-master/example.js  > practice_4/descriptor/mimir-master/example_bundle.js
+//browserify practice_4/descriptor/bag_of_words/example.js  > practice_4/descriptor/bag_of_words/example_bundle.js
+//browserify -t brfs practice_4/descriptor/bag_of_words/example.js  > practice_4/descriptor/bag_of_words/example_bundle.js
 //bag of word --> https://github.com/techfort/mimir
 
 //var loc = window.location.pathname;
