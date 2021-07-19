@@ -49,11 +49,6 @@ function build_kdtree(points, depth = 0){
     node.right = build_kdtree(right, depth + 1);
     return node;
 }
-function distanceSquared(point1, point2){ var distance = 0;
-    for (var i = 0; i < k; i++)
-    distance += Math.pow((point1[i] - point2[i]), 2);
-    return Math.sqrt(distance); 
-}
 function closest_point_brute_force(points, point){
     var distance = null;
     var best_distance = null;
@@ -89,8 +84,56 @@ function naive_closest_point(node, point, depth = 0, best = null){
         next_branch = node.right
     return  naive_closest_point(next_branch, point, depth +1, next_best);
 }
+function distanceSquared(point1, point2){ 
+    var distance = 0;
+    for (var i = 0; i < k; i++)
+    console.log("Points: "+point1[i] +","+ point2[i]);
+    distance += Math.pow((point1[i] - point2[i]), 2);
+    return Math.sqrt(distance); 
+}
+//Devuelve el punto mas cercano al de consulta.
 function closet_point(node, point, depth=0){
-
+    if(node==null) return null;
+    console.log("closet_point: "+ node.point +":"+point);
+    //var next_branch = null;
+    //var otherBranch = null;
+    if(point[parseInt(depth)%k]<node.point[parseInt(depth)%k]){
+        next_branch = node.left;
+        otherBranch = node.right;
+    }else{
+        next_branch = node.right;
+        otherBranch = node.left;
+    }
+    if(next_branch != null){
+        console.log(next_branch);
+        //console.log("point: "+point);
+        //console.log(parseInt(depth)+1);
+        var temp= closet_point(next_branch,point,parseInt(depth)+1);
+        console.log("temp: "+temp);
+        if(temp!=null){
+            var best = closest(point,temp,node);
+            console.log("best: "+best);
+            //console.log("PUNTOS distanceSquared: "+point +":"+best.point);
+            var radiusSquared= distanceSquared(point,best.point);
+            var dist= point[depth%k]-node.point[parseInt(depth)%k];
+            if(radiusSquared>= dist*dist){
+                temp= closet_point(otherBranch,point,parseInt(depth)+1);
+                best= closest(point,temp,best);
+            } 
+        }
+        return best; 
+    }
+}
+function closest(n0, n1, target) {
+    if (n0 == null) return n1;
+    if (n1 == null) return n0;
+    console.log("closest: "+ n0.point +","+n1.point);
+    let d1 = distanceSquared(n0.point, target);
+    let d2 = distanceSquared(n1.point, target);
+    if (d1 < d2)
+        return n0;
+    else
+        return n1;
 }
 function range_query_circle(node, center, radio, queue,depth=0){
 
@@ -98,7 +141,7 @@ function range_query_circle(node, center, radio, queue,depth=0){
 function range_query_rec(node, center, radio, queue,depth=0){
     
 }
-//Paul aqui tu implementacion del KNN
+//Paul aqui tu implementacion del KNN usar cola de prioridades
 function KNN(){
     
 }

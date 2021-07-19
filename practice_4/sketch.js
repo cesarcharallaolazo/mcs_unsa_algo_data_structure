@@ -63,6 +63,8 @@ function setup(){
     console.log("digraph G { \n" + generate_dot(root)+ "}");
     console.log("Altura del arbol: "+getHeight(root));   
     console.log("punto a consultar: "+point);
-    console.log("Closet point brute force: "+closest_point_brute_force(data, point));
-    console.log("naive closest point: "+naive_closest_point(root, point));
+    //console.log("Closet point brute force: "+closest_point_brute_force(data, point));
+    //console.log("naive closest point: "+naive_closest_point(root, point));
+    console.log("closet point: "+closet_point(root, point));
+
 }
