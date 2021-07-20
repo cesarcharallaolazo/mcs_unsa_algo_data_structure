@@ -9,15 +9,29 @@
   <body>
     <canvas id="canvas" width=500 height=500></canvas>
     <br />
-    <input id="add" type="submit" value="Agregar un punto"/>
+    <br>
     <input id="add2" type="submit" value="Graficar Puntos"/>
+    <input id="add" type="submit" value="Graficar KD-Tree DB Spam"/>
     <input id="add3" type="submit" value="KNN"/>
     <input id="rebuild" type="submit" value="Reconstruir tree">
+    <input id="reload" type="submit" value="Limpiar"/>
     <p>Click para remover un punto</p>
     <p>Factor de Balance: <span id="factor">1</span></p>
     <script src="../jquery-1.7.2.min.js"></script>
     <script src="../../kdTree.js"></script>
+    <script src="read_json_dr_converted.js"></script>
     <script>
+      const reload = document.getElementById('reload');
+
+      reload.addEventListener('click', _ => { // el _ es para indicar la ausencia de parametros
+          location.reload();
+      });
+
+      // call points from spam descriptor with dimensional reduction
+      var spam_data = new SpamDataClass(); // Enjoy!
+      var spam_dr_2d_list = spam_data.c_spam_dr_2d_list
+      //console.log(spam_dr_2d_list);
+
       var tree, canvas, ctx;
       var points = [];
 
@@ -96,7 +110,46 @@
 
         tree = new kdTree([], distance, ["x", "y"]);
 
+
+        var i = 1;                  //  set your counter to 1
+
+
+
         $("#add").click(function(){
+          console.log(spam_dr_2d_list);
+          
+
+          for (let index = 0; index < spam_dr_2d_list.length; index++) {
+                      
+          var x=spam_dr_2d_list[index][1];
+          var y=spam_dr_2d_list[index][2];        
+
+          var point = {
+            x: Math.abs(x)*canvas.width*35,
+            y: Math.abs(y)*canvas.height*40
+          };
+          
+          points.push(point);  
+          tree.insert(point);
+          renderTree();
+   
+          }
+        
+          
+       
+
+          /*var point = {
+            x: Math.random()*canvas.width,
+            y: Math.random()*canvas.height
+          };
+          points.push(point);
+          tree.insert(point);
+          renderTree();
+
+          */
+        });
+        
+        $("#add2").click(function(){
           var point = {
             x: Math.random()*canvas.width,
             y: Math.random()*canvas.height
@@ -105,147 +158,76 @@
           tree.insert(point);
           renderTree();
         });
-        
-        $("#add2").click(function(){
-          //const kdtree = require('./kd-tree-javascript/kdTree');
-          var points = [
-            {x: 1, y: 2},
-            {x: 3, y: 4},
-            {x: 5, y: 6},
-            {x: 7, y: 8}
-          ];
-          var distance = function(a, b){
-            return Math.pow(a.x - b.x, 2) +  Math.pow(a.y - b.y, 2);
-          }
-          var tree = new kdTree(points, distance, ["x", "y"]);
-          var nearest = tree.nearest({ x: 5, y: 5 }, 2);
-          console.log(nearest);
-        });
 
         $("#add3").click(function(){
-        
-        
-
-          //const kdtree = require('./kd-tree-javascript/kdTree');
-          var points = [
-            {x: 1, y: 2},
-            {x: 1, y: 4},
-            {x: 5, y: 7}, //A
-            {x: 1, y: 1},
-            {x: 5, y: 6},
-            {x: 1, y: 15},
-            {x: 5, y: 25},
-            {x: 1, y: 3},
-            {x: 5, y: 22},
-            {x: 1, y: 32},
-            {x: 5, y: 15}
-          ];
-
+       
           var data=[];
 
-          for (let index = 0; index < points.length; index++) {
+          for (let index = 0; index < spam_dr_2d_list.length; index++) {
 
-            if(index%2==0)
-            {
-              var newObject = {
-              label: "Class A", //5
-              x: points[index]["x"],
-              y: points[index]["y"]
+
+            var newObject = {
+              label: spam_dr_2d_list[index][0], //5
+              x: spam_dr_2d_list[index][1],
+              y: spam_dr_2d_list[index][2]
             }
             data.push(newObject);
-            }
-            else{
-
-              var newObject = {
-              label: "Class B", 
-              x: points[index]["x"],
-              y: points[index]["y"]
-            }
-            data.push(newObject);
-
-            }
             
           }
 
-          //console.log(data);
-
           //var shuffledData = shuffle(data);
-          var shuffledData= data
-          console.log(shuffledData)
+          var shuffledData= data // mix data
+          var train = shuffledData.slice(0, 259);
 
-          let array=data;
-          var train = shuffledData.slice(0, Math.floor(shuffledData.length * 0.9));
-          var test = shuffledData.slice(Math.floor(shuffledData.length * 0.9) + 1, shuffledData.length);
-          /*
-          var newObject_test = {
-              label: "Class A",
-              x: 5,
-              y: 1}
-
-          var dataT=[];
-          var test =newObject_test;
-          dataT.push(test);
-          */
-            
-          console.log(train);
-          console.log(test);
-
+          console.log(train); // our data
 
           //Xmax,Ymax
           var tree = new kdTree(train, distance, ["x", "y"]);
-          //var nearest = tree.nearest({ x: 5, y: 5 }, 2);
-          var k = 2;
+      
+          var k = 21; // K neighbors
           
-          var total = 0;
-          var correct = 0;
-          while(test[total] != null)
-          {
-          var nearest = tree.nearest(test[total], k);
+          //VARIABLES A PREDECIR:
+          //-0.02641380436087745, y: -0.019325203344133426  //classB
+          //0.03736936979802321, y: 0.10202618110572602 //class A
+          var pointToPredict= {
+              x: -0.02641380436087745,
+              y:  -0.019325203344133426};
           
-          console.log("vecinos: ",nearest);
-          var label = test[total].label;
-          var classa = 0;
-          // Count k nearest points that is labeled as "Class A"
-          for(i = 0; i < k; i++)
-          {
-            if(nearest[i][0].label == "Class A")
+          
+              console.log(pointToPredict);
+          
+          var nearest = tree.nearest(pointToPredict, k);
+          console.log(nearest);
+          
+          //acumulator declaration  for each class
+          var contClassA=0;
+          var contClassB=0;
+          for (let index = 0; index < nearest.length; index++) {
+            
+            if(nearest[index][0].label=="Class A")
             {
-            classa++;
+              contClassA++;
             }
-          }     
+            else{
+              contClassB++;
+            }
+            
+          }
+          console.log("Resultado de clase A: ",contClassA);
+          console.log("Resultado de clase B: ",contClassB);
+          console.log("------RESULTADO-----");
+          if(contClassA>contClassB){
+            console.log("El punto pertenece a la clase A");
+          }
+          else{
+            console.log("El punto pertenece a la clase B");
+          }
           
-          
-          console.log("Numero  de clase A",classa);
-
-          // Validate if the actual label matches the majority
-          if(classa > k - classa && test[total].label == "Class A")
-          {
-            correct++;
-          }
-          else if(classa < k - classa && test[total].label == "Class B")
-          {
-            correct++
-          }
-          else if(classa == k - classa)
-          {
-            // In the case of a tie, evaluate randomly 50%/50%
-            if(Math.random() > 0.5 && test[total].label == "Class A")
-            {
-            correct++;
-            }
-            else if(test[total].label == "Class B")
-            {
-            correct++;
-            }
-          }
-          total++;
-          }
-
-
-          console.log("k-NN: " + correct/total);
-
-
         });
+
+
+
+        
         
         $("#rebuild").click(function(){
           tree = new kdTree(points, distance, ["x", "y"]);
