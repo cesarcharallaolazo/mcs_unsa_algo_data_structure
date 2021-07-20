@@ -27,9 +27,9 @@ var body_mails = []
 var spam_mails = []
 for (const file in filenames) {
     if (filenames[file].slice(0, 5) == "spmsg") {
-        spam_mails.push(1) // es spam
+        spam_mails.push("Class B") // es spam = Clase B
     } else {
-        spam_mails.push(0) // no es spam
+        spam_mails.push("Class A") // no es spam = Clase A
     }
     ;
     text = fs.readFileSync(path.join(__dirname, base_text_path + filenames[file])).toString('utf-8');
@@ -79,6 +79,14 @@ for (i in bow_all_dr) {
 console.log(all_mails_output_list)
 
 
+// write JSON string to a file
+const data = JSON.stringify(all_mails_output_list);
+fs.writeFile('final_spam_dr_2d.json', data, (err) => {
+    if (err) {
+        throw err;
+    }
+    console.log("JSON data is saved.");
+});
 
 
 
