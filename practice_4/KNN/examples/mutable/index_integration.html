@@ -16,7 +16,7 @@
     <input id="rebuild" type="submit" value="Reconstruir tree">
     <input id="reload" type="submit" value="Limpiar"/>
     <p>Click para remover un punto</p>
-    <p>Factor de Balance: <span id="factor">1</span></p>
+    
     <script src="../jquery-1.7.2.min.js"></script>
     <script src="../../kdTree.js"></script>
     <script src="read_json_dr_converted.js"></script>
@@ -28,7 +28,7 @@
       });
 
       // call points from spam descriptor with dimensional reduction
-      var spam_data = new SpamDataClass(); // Enjoy!
+      var spam_data = new SpamDataClass();
       var spam_dr_2d_list = spam_data.c_spam_dr_2d_list
       //console.log(spam_dr_2d_list);
 
@@ -184,7 +184,7 @@
           //Xmax,Ymax
           var tree = new kdTree(train, distance, ["x", "y"]);
       
-          var k = 21; // K neighbors
+          var k = 7; // K neighbors
           
           //VARIABLES A PREDECIR:
           //-0.02641380436087745, y: -0.019325203344133426  //classB
