@@ -53,7 +53,7 @@ for (const i in body_mails) {
 //console.log(bow_list);
 
 
-// *** FASTMAP - PCA ***
+// *** MDS - Dimensionality reduction ***
 druid = require("@saehrimnir/druidjs")
 let matrix = druid.Matrix.from(bow_list); //matriz (# documentos , # palabras en el vocabulario calculado)
 console.log(matrix);
