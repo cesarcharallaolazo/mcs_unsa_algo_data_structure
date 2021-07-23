@@ -26,10 +26,11 @@
     this.dimension = dimension;
   }
 
+ // Implementación del KdTree
   function kdTree(points, metric, dimensions) {
 
     var self = this;
-
+// Constructor del KdTree
     function buildTree(points, depth, parent) {
       var dim = depth % dimensions.length,
         median,
@@ -46,6 +47,7 @@
         return a[dimensions[dim]] - b[dimensions[dim]];
       });
 
+ // Cálculo de la mediana para la obtención de los hijos del árbol.
       median = Math.floor(points.length / 2);
       node = new Node(points[median], dim, parent);
       node.left = buildTree(points.slice(0, median), depth + 1, node);
