@@ -36,6 +36,8 @@
       var points = [];
 
       function distance(a, b) {
+
+        // Distancia euclidiana que usará el KNN
         var dx = a.x - b.x;
         var dy = a.y - b.y;
         return dx*dx + dy*dy;
@@ -184,7 +186,7 @@
           //Xmax,Ymax
           var tree = new kdTree(train, distance, ["x", "y"]);
       
-          var k = 7; // K neighbors
+          var k = 7; // K neighbors ( Configuramos el número de vecinos más cercanos)
           
           //VARIABLES A PREDECIR:
           //-0.02641380436087745, y: -0.019325203344133426  //classB
@@ -199,7 +201,7 @@
           var nearest = tree.nearest(pointToPredict, k);
           console.log(nearest);
           
-          //acumulator declaration  for each class
+          //Acumulador de cada clase spam y no spam
           var contClassA=0;
           var contClassB=0;
           for (let index = 0; index < nearest.length; index++) {
