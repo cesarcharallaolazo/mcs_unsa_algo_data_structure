@@ -213,7 +213,3 @@ BPQ.prototype.add = function(value, priority) {
     }
     this.elements = q.slice(0, this.capacity);
 };  
-function range_query_circle(node, center, radio, queue,depth=0){
-}
-function range_query_rec(node, center, radio, queue,depth=0){
-}
